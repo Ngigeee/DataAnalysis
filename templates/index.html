@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>kijarney</title>
+
+{% include "reusables/home/metadata.html" %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/progressBar.css') }}">
+<head>
+</head>
+<body>
+
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- MODEL OVERLAYS -->
+{% include "reusables/home/modelOverlay.html" %} 
+<!-- TOP BAR -->
+{% include "reusables/home/top_bar.html" %}
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+{% include "reusables/home/side_bar.html" %}
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOOLBAR -->
+{% include "reusables/home/tool_bar.html" %}  
+
+<!-- OVERVIEW -->
+
+{% include "reusables/home/overview.html" %}  
+    
+
+ <!-- DATA WORKSPACE -->
+<!-- DATA WORKSPACE -->
+    <div id="dataWorkspace">
+
+        {% include "reusables/home/table.html" %}
+
+        {% include "reusables/home/output_panel.html" %}
+        
+            </div>
+    
+     
+
+
+   
+
+
+<!-- COLUMN POPUP -->
+{% include "reusables/home/nav_popup.html" %}  
+
+<!-- VIZ PANEL -->
+{% include "reusables/home/visualization_panel.html" %} 
+
+<!-- MODEL PANEL -->
+{% include "reusables/home/models_panel.html" %} 
+
+
+
+<!-- upload  progress bar -->
+<div id="uploadContainer" class="upload-progress" style="display:none;">
+    <div class="progress-circle">
+        <svg width="120" height="120">
+            <circle
+                class="bg"
+                cx="60"
+                cy="60"
+                r="52"
+            />
+            <circle
+                class="progress"
+                cx="60"
+                cy="60"
+                r="52"
+            />
+        </svg>
+
+        <div id="uploadPercent" class="progress-text">
+            0%
+        </div>
+    </div>
+</div>
+
+<!-- Premium Subscription Overlay -->
+<div class="premium-overlay" id="premium-overlay">
+
+    <div class="premium-card">
+
+
+        <button class="premium-close" onclick="closePremiumOverlay()">
+            <i class="fas fa-times"></i>
+        </button>
+
+
+
+        <div class="premium-header">
+
+            <div class="premium-crown">
+                <i class="fas fa-crown"></i>
+            </div>
+
+            <h2>Upgrade to Premium</h2>
+
+            <p>
+                Unlock advanced analytics and machine learning tools.
+            </p>
+
+        </div>
+
+
+
+
+        <div class="premium-features">
+
+
+            <div class="feature-item">
+                <i class="fas fa-chart-line"></i>
+                <span>
+                    Advanced Visualizations
+                    <small>
+                        Line, Pie, Heatmaps, Box plots
+                    </small>
+                </span>
+            </div>
+
+
+
+            <div class="feature-item">
+                <i class="fas fa-robot"></i>
+                <span>
+                    Machine Learning Models
+                    <small>
+                        Regression and prediction models
+                    </small>
+                </span>
+            </div>
+
+
+
+            <div class="feature-item">
+                <i class="fas fa-brain"></i>
+                <span>
+                    AI Data Insights
+                    <small>
+                        Automated dataset analysis
+                    </small>
+                </span>
+            </div>
+
+
+
+            <div class="feature-item">
+                <i class="fas fa-bolt"></i>
+                <span>
+                    Advanced Analytics
+                    <small>
+                        More powerful exploration tools
+                    </small>
+                </span>
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="premium-price">
+
+            <h3>
+                Premium Plan
+            </h3>
+
+            <p>
+                Unlock all professional features
+            </p>
+
+        </div>
+
+
+
+        <button class="upgrade-btn">
+
+            <i class="fas fa-crown"></i>
+            Upgrade Now
+
+        </button>
+
+
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+</body>
+</html>

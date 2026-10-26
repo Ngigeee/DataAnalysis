@@ -1,0 +1,16 @@
+<div class="big-overlay" id="viz-overlay">
+  <div class="big-panel">
+    <div class="big-panel-head">
+      <h3 id="viz-title"><i class="fas fa-chart-column" style="color:var(--accent)"></i> Visualization</h3>
+      <button class="close-btn" onclick="closeViz()"><i class="fas fa-xmark"></i> Close</button>
+    </div>
+    <div class="big-panel-body">
+      <div class="form-row" id="viz-form"></div>
+      <button class="tb-btn primary" id="viz-run-btn" onclick="runViz()"><i class="fas fa-play"></i> Generate</button>
+      <button class="tb-btn" onclick="downloadChartPDF()"><i class="fas fa-file-pdf"></i>Download PDF</button>
+      <div style="margin-top:16px;max-height:380px;overflow:hidden">
+        <canvas id="viz-canvas"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

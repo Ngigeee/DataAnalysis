@@ -1,0 +1,152 @@
+<aside class="desktopsidebar">
+
+    <!-- Upload -->
+    <div class="s-section">
+        <span class="s-label">
+            <i class="fas fa-upload"></i> Upload Dataset
+        </span>
+        <label class="upload-area" style="display:block;text-align:center;padding:15px;border:2px dashed var(--border);border-radius:8px;cursor:pointer;">
+            <input type="file" class="fileInput" accept=".csv,.json" style="display:none;">
+            <i class="fas fa-cloud-arrow-up" style="font-size:1.2rem;margin-bottom:5px;color:var(--accent)"></i>
+            <br>
+            Click to upload CSV or JSON
+        </label>
+        <div class="section-spacer"></div>
+    </div>
+
+    <!-- Global Website Overview -->
+    <div class="s-section">
+        <button class="s-btn" onclick="showGlobalOverview()" style="width:100%;text-align:left;background:var(--panel);border:1px solid var(--border);padding:10px 15px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:10px;font-weight:600;color:var(--text);">
+            <i class="fas fa-house-laptop" style="color:var(--accent);"></i>
+            <span>Overview</span>
+        </button>
+    </div>
+
+    <!-- Inspection -->
+    <div class="s-section">
+        <span class="s-label">
+            <i class="fas fa-magnifying-glass"></i> Inspection
+        </span>
+        <button class="s-btn" onclick="showHead()">
+            <i class="fas fa-arrow-down-1-9"></i> Head (5 rows)
+        </button>
+        <button class="s-btn" onclick="showTail()">
+            <i class="fas fa-arrow-up-1-9"></i> Tail (5 rows)
+        </button>
+        <button class="s-btn" onclick="showDtypes()">
+            <i class="fas fa-tag"></i> Data Types
+        </button>
+        <button class="s-btn" onclick="showDescribe()">
+            <i class="fas fa-chart-simple"></i> Describe
+        </button>
+        <button class="s-btn" onclick="showInfo()">
+            <i class="fas fa-circle-info"></i> Info
+        </button>
+        <button class="s-btn" onclick="showColumns()">
+            <i class="fas fa-columns"></i> View Columns
+        </button>
+        <button class="s-btn" onclick="showShape()">
+            <i class="fas fa-ruler-combined"></i> Shape
+        </button>
+    </div>
+
+    <!-- Exploring -->
+    <div class="s-section">
+        <span class="s-label">
+            <i class="fas fa-binoculars"></i> Exploring
+        </span>
+        <button class="s-btn warn" onclick="showDuplicates()">
+            <i class="fas fa-copy"></i> See Duplicates
+        </button>
+        <button class="s-btn warn" onclick="showMissing()">
+            <i class="fas fa-triangle-exclamation"></i> Missing Values
+        </button>
+    </div>
+
+    <!-- Cleaning -->
+    <div class="s-section">
+        <span class="s-label">
+            <i class="fas fa-broom"></i> Cleaning
+        </span>
+        <button class="s-btn danger" onclick="removeDuplicates()">
+            <i class="fas fa-trash"></i> Remove Duplicates
+        </button>
+        <button class="s-btn danger" onclick="dropMissing()">
+            <i class="fas fa-filter"></i> Drop Missing Rows
+        </button>
+        <button class="s-btn" onclick="fillMissing('mean')">
+            <i class="fas fa-chart-bar"></i> Fill Missing → Mean
+        </button>
+        <button class="s-btn" onclick="fillMissing('median')">
+            <i class="fas fa-chart-bar"></i> Fill Missing → Median
+        </button>
+        <button class="s-btn" onclick="fillMissing('mode')">
+            <i class="fas fa-chart-bar"></i> Fill Missing → Mode
+        </button>
+    </div>
+
+    <!-- DataFrames / Copies -->
+    <div class="s-section">
+        <span class="s-label">
+            <i class="fas fa-copy"></i> DataFrames
+        </span>
+        <button class="s-btn go" onclick="createCopy()">
+            <i class="fas fa-plus"></i> Copy DataFrame
+        </button>
+        <button class="s-btn" onclick="toggleCopies()">
+            <i class="fas fa-folder-open"></i> View Copies
+        </button>
+        <div class="copies-list" id="copies-list" style="display:none;"></div>
+    </div>
+
+    <!-- Visualization -->
+    <div class="s-section">
+        <span class="s-label">
+            <i class="fas fa-chart-pie"></i> Visualization
+        </span>
+        <button class="s-btn" onclick="openViz('histogram')">
+            <i class="fas fa-chart-column"></i> Histogram
+        </button>
+        <button class="s-btn" onclick="openViz('scatter')">
+            <i class="fas fa-braille"></i> Scatter Plot
+        </button>
+        <button class="s-btn" onclick="openViz('bar')">
+            <i class="fas fa-chart-bar"></i> Bar Chart
+        </button>
+    </div>
+
+    <!-- More Visualization -->
+    <div class="s-section">
+        <span class="s-label">
+            <i class="fas fa-layer-group"></i> More Charts
+        </span>
+        <button class="s-btn" onclick="openPremiumOverlay()">
+            <i class="fas fa-crown"></i> More Visualization
+            <i class="fas fa-lock" style="float:right"></i>
+        </button>
+    </div>
+
+    <!-- Models Premium -->
+    <div class="s-section">
+        <span class="s-label">
+            <i class="fas fa-robot"></i> Models
+        </span>
+        <button class="s-btn" onclick="handleModelClick('linear_regression')">
+        <i class="fas fa-chart-line"></i> Linear Regression
+        <i class="fas fa-lock" style="float:right"></i>
+    </button>
+
+
+    <button class="s-btn" onclick="handleModelClick('logistic_regression')">
+        <i class="fas fa-code-branch"></i> Logistic Regression
+        <i class="fas fa-lock" style="float:right"></i>
+    </button>
+
+
+    <button class="s-btn" onclick="handleModelClick('decision_tree')">
+        <i class="fas fa-sitemap"></i> Decision Tree
+        <i class="fas fa-lock" style="float:right"></i>
+    </button>
+    </div>
+
+</aside>

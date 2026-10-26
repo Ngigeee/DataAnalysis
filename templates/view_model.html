@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title id="page-title">
+        Model Details - Kijarney
+    </title>
+    
+    {% include "reusables/home/metadata.html" %}
+
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/view_model.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- =================================================
+         TOP BAR
+    ================================================ -->
+
+    <div class="topbar">
+
+        <a
+            href="/profile"
+            class="back"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Profile
+
+        </a>
+
+
+        <div class="page-title">
+
+            Model Details
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         MODEL INFORMATION
+    ================================================ -->
+
+    <div class="card">
+
+
+        <div class="model-header">
+
+
+            <div class="model-heading">
+
+
+                <div class="model-icon">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h1 id="model-name-heading">Loading...</h1>
+
+                    <p id="model-type-sub">--</p>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                class="run-button"
+                onclick="showRunPanel()"
+            >
+
+                <i class="fa-solid fa-play"></i>
+
+                Run Model
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             DETAILS
+        ================================================ -->
+
+        <div class="details-grid">
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+
+                    Model Type
+
+                </div>
+
+                <div class="detail-value" id="detail-model-type">
+
+                    --
+
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+
+                    Target
+
+                </div>
+
+                <div class="detail-value">
+
+                    <span class="target-badge" id="detail-target">
+
+                        --
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+
+                    Model ID
+
+                </div>
+
+                <div class="detail-value" id="detail-model-id">
+
+                    --
+
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+
+                    Created
+
+                </div>
+
+                <div class="detail-value" id="detail-created-at">
+
+                    --
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         FEATURES
+    ================================================ -->
+
+    <div class="card">
+
+
+        <h3 class="section-title">
+
+            <i class="fa-solid fa-sliders"></i>
+
+            Features Used for Training
+
+        </h3>
+
+
+        <p
+            style="
+                color:var(--muted);
+                font-size:.8rem;
+                margin-bottom:15px;
+            "
+        >
+
+            These are the values this model expects
+            when making a prediction.
+
+        </p>
+
+
+        <div class="features" id="features-container">
+
+            <!-- Dynamic features injected here -->
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         METRICS
+    ================================================ -->
+
+    <div class="card" id="metrics-card" style="display: none;">
+
+
+        <h3 class="section-title">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            Model Performance
+
+        </h3>
+
+
+        <div class="metrics" id="metrics-container">
+
+            <!-- Dynamic metrics injected here -->
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         RUN MODEL PANEL
+    ================================================ -->
+
+    <div
+        class="card"
+        id="run-panel"
+    >
+
+
+        <h3 class="section-title">
+
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+            Make a Prediction
+
+        </h3>
+
+
+        <p
+            style="
+                color:var(--muted);
+                font-size:.8rem;
+                margin-bottom:20px;
+            "
+        >
+
+            Enter a value for each feature used by the
+            model during training.
+
+            The model will predict:
+
+            <strong id="predict-target-label">
+                --
+            </strong>
+
+        </p>
+
+
+        <form
+            id="prediction-form"
+        >
+
+
+            <div class="input-grid" id="input-grid-container">
+
+                <!-- Dynamic input fields injected here -->
+
+            </div>
+
+
+
+            <div class="predict-row">
+
+
+                <button
+                    type="button"
+                    class="btn"
+                    onclick="hideRunPanel()"
+                    style="
+                        border:1px solid var(--border);
+                        background:transparent;
+                        color:var(--text);
+                        padding:11px 18px;
+                        border-radius:9px;
+                        cursor:pointer;
+                        font-weight:600;
+                    "
+                >
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="predict-button"
+                    id="predict-button"
+                >
+
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                    Predict
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+
+        <!-- =================================================
+             RESULT
+        ================================================ -->
+
+        <div id="result">
+
+            <div class="prediction-label" id="result-label">
+
+                Predicted Value
+
+            </div>
+
+
+            <div
+                class="prediction-value"
+                id="prediction-value"
+            >
+
+                --
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<script src="{{ url_for('static', filename='js/view_model.js') }}"></script>
+
+</body>
+
+</html>

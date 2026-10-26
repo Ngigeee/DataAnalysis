@@ -1,0 +1,25 @@
+<div class="workspace-controls">
+    <button id="restoreOutputBtn"
+            onclick="toggleOutputPanel()"
+            style="display:none;">
+        <i class="fas fa-chevron-up"></i>
+        Show Output
+    </button>
+</div>
+
+<div class="output-panel">
+      <div class="output-tabs">
+        <div class="out-tab active" data-tab="console" onclick="switchTab('console')">Console</div>
+        <div class="out-tab" data-tab="result" onclick="switchTab('result')">Result</div>
+        <div class="out-tab" data-tab="log" onclick="switchTab('log')">Log</div>
+        <button class="expand-btn" onclick="toggleOutputSize()" title="Expand"><i id="expandIcon" class="fas fa-expand"></i></button>
+        <button class="collapse-btn" onclick="toggleOutputPanel()" title="Hide Output"><i id="collapseIcon" class="fas fa-chevron-down"></i></button>
+        
+      </div>
+      <div class="out-content" id="out-console"><div class="out-text" style="color:var(--muted)">Ready. Upload a CSV/JSON or work with the sample Titanic dataset loaded above.</div></div>
+      <div class="out-content" id="out-result" style="display:none"></div>
+      <div class="out-content" id="out-log" style="display:none"><div class="out-text" id="log-text" style="color:var(--muted)">No actions yet.</div></div>
+    </div>
+  </div>
+</div>
+

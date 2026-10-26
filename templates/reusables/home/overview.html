@@ -1,0 +1,791 @@
+<div id="overviewPanel">
+    <div class="overview-content">
+
+        <!-- HERO SECTION 
+        <div class="overview-hero">
+            <div class="hero-badge">
+                <i class="fas fa-chart-line"></i>
+                <span>DATA SCIENCE WORKSPACE</span>
+            </div>
+            <h1>Analyze. <span>Visualize.</span> Understand.</h1>
+            <p>Welcome to Kijarney — your all-in-one workspace for exploring, cleaning, visualizing, and understanding data seamlessly.</p>
+        </div>
+        -->
+
+        <!-- DATASET SUMMARY -->
+        <div class="overview-section">
+            <div class="section-heading">
+                <div>
+                    <h2>Dataset Overview</h2>
+                    <p>Real-time metrics of your active dataset</p>
+                </div>
+                <div class="section-badge-live">
+                    <span class="status-dot"></span> Active Session
+                </div>
+            </div>
+
+            <div class="overview-stats">
+                <div class="overview-card">
+                    <div class="overview-card-icon">
+                        <i class="fas fa-table"></i>
+                    </div>
+                    <div>
+                        <span class="overview-card-label">Rows</span>
+                        <strong id="overviewRows">24,582</strong>
+                    </div>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-card-icon">
+                        <i class="fas fa-columns"></i>
+                    </div>
+                    <div>
+                        <span class="overview-card-label">Columns</span>
+                        <strong id="overviewColumns">19</strong>
+                    </div>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-card-icon warning">
+                        <i class="fas fa-triangle-exclamation"></i>
+                    </div>
+                    <div>
+                        <span class="overview-card-label">Missing Values</span>
+                        <strong id="overviewMissing">1,134</strong>
+                    </div>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-card-icon danger">
+                        <i class="fas fa-copy"></i>
+                    </div>
+                    <div>
+                        <span class="overview-card-label">Duplicates</span>
+                        <strong id="overviewDuplicates">58</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISUAL ANALYTICS HUB -->
+        <div class="overview-section">
+            <div class="section-heading">
+                <div>
+                    <h2>Visual Analytics Hub</h2>
+                    <p>Snapshot of data distribution and key correlations</p>
+                </div>
+            </div>
+
+            <div class="analytics-row">
+                <!-- 1. Mini Waveform (Stream) -->
+                <div class="overview-chart-preview small-widget">
+                    <div class="chart-header-row">
+                        <span class="chart-title"><i class="fas fa-wave-square"></i> Ingestion Stream</span>
+                    </div>
+                    <div class="mini-waveform">
+                        <div class="wave-bar" style="height: 35%;"></div>
+                        <div class="wave-bar" style="height: 60%;"></div>
+                        <div class="wave-bar" style="height: 45%;"></div>
+                        <div class="wave-bar" style="height: 80%;"></div>
+                        <div class="wave-bar" style="height: 65%;"></div>
+                        <div class="wave-bar" style="height: 90%;"></div>
+                        <div class="wave-bar" style="height: 40%;"></div>
+                        <div class="wave-bar" style="height: 75%;"></div>
+                        <div class="wave-bar" style="height: 95%;"></div>
+                        <div class="wave-bar" style="height: 55%;"></div>
+                        <div class="wave-bar" style="height: 70%;"></div>
+                        <div class="wave-bar" style="height: 85%;"></div>
+                        <div class="wave-bar" style="height: 50%;"></div>
+                        <div class="wave-bar" style="height: 65%;"></div>
+                        <div class="wave-bar" style="height: 30%;"></div>
+                    </div>
+                </div>
+
+                <!-- 2. Donut Chart (Data Types) -->
+                <div class="overview-chart-preview small-widget donut-widget">
+                    <div class="chart-header-row">
+                        <span class="chart-title"><i class="fas fa-ring"></i> Data Types</span>
+                    </div>
+                    <div class="donut-container">
+                        <div class="donut-chart"></div>
+                        <div class="donut-legend">
+                            <div class="legend-item"><span class="dot" style="background: var(--accent);"></span>Numerical (63%)</div>
+                            <div class="legend-item"><span class="dot" style="background: var(--accent2);"></span>Categorical (32%)</div>
+                            <div class="legend-item"><span class="dot" style="background: var(--yellow);"></span>Boolean (5%)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 3. Correlation Heatmap Grid -->
+                <div class="overview-chart-preview small-widget heatmap-widget">
+                    <div class="chart-header-row">
+                        <span class="chart-title"><i class="fas fa-th-large"></i> Target Correlations</span>
+                    </div>
+                    <div class="heatmap-grid">
+                        <div class="h-row">
+                            <div class="h-cell heat-100"></div>
+                            <div class="h-cell heat-60"></div>
+                            <div class="h-cell heat-20"></div>
+                            <div class="h-cell heat-40"></div>
+                        </div>
+                        <div class="h-row">
+                            <div class="h-cell heat-60"></div>
+                            <div class="h-cell heat-90"></div>
+                            <div class="h-cell heat-10"></div>
+                            <div class="h-cell heat-70"></div>
+                        </div>
+                        <div class="h-row">
+                            <div class="h-cell heat-20"></div>
+                            <div class="h-cell heat-10"></div>
+                            <div class="h-cell heat-100"></div>
+                            <div class="h-cell heat-50"></div>
+                        </div>
+                        <div class="h-row">
+                            <div class="h-cell heat-40"></div>
+                            <div class="h-cell heat-70"></div>
+                            <div class="h-cell heat-50"></div>
+                            <div class="h-cell heat-80"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN FEATURES -->
+        <div class="overview-section">
+            <div class="section-heading">
+                <div>
+                    <h2>What would you like to do?</h2>
+                    <p>Select a powerful tool to kick off your workflow</p>
+                </div>
+            </div>
+
+            <div class="overview-tools">
+                <!-- INSPECTION -->
+                <div class="overview-tool">
+                    <div class="tool-icon">
+                        <i class="fas fa-magnifying-glass"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Inspect Data</h3>
+                        <p>Explore your dataset structure, data types, distributions, and summary statistics.</p>
+                        <div class="tool-tags">
+                            <span>Head</span>
+                            <span>Tail</span>
+                            <span>Info</span>
+                            <span>Describe</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CLEANING -->
+                <div class="overview-tool">
+                    <div class="tool-icon">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Clean Data</h3>
+                        <p>Impute missing values, drop duplicates, and seamlessly transform your dataset.</p>
+                        <div class="tool-tags">
+                            <span>Missing Values</span>
+                            <span>Duplicates</span>
+                            <span>Transform</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VISUALIZATION -->
+                <div class="overview-tool">
+                    <div class="tool-icon">
+                        <i class="fas fa-chart-column"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Visualize Data</h3>
+                        <p>Turn raw columns into clean charts and gain instant visual insights with zero code.</p>
+                        <div class="tool-tags">
+                            <span>Histogram</span>
+                            <span>Scatter</span>
+                            <span>Bar Chart</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MACHINE LEARNING -->
+                <div class="overview-tool premium">
+                    <div class="tool-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="tool-content">
+                        <div class="tool-title">
+                            <h3>Build Models</h3>
+                            <span class="premium-badge">
+                                <i class="fas fa-crown"></i>
+                                Premium
+                            </span>
+                        </div>
+                        <p>Train robust machine learning pipelines and discover deep predictive patterns.</p>
+                        <div class="tool-tags">
+                            <span>Regression</span>
+                            <span>Classification</span>
+                            <span>Prediction</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK START -->
+        <div class="overview-quick">
+            <div class="quick-icon">
+                <i class="fas fa-rocket"></i>
+            </div>
+            <div class="quick-content">
+                <h2>Ready to explore your data?</h2>
+                <p>Use the navigation panel on the left to seamlessly inspect, clean, and visualize your files.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+/* =====================================================
+   KIJARNEY OVERVIEW (MODERN REDESIGN + NEW VISUALS)
+===================================================== */
+
+#overviewPanel {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 32px;
+    box-sizing: border-box;
+    background: var(--bg);
+    font-family: var(--sans);
+}
+
+.overview-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* =====================================================
+   HERO BANNER
+===================================================== */
+
+.overview-hero {
+    position: relative;
+    padding: 36px;
+    background: linear-gradient(135deg, var(--panel) 0%, var(--panel2) 100%);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: var(--accent);
+    margin-bottom: 16px;
+}
+
+.overview-hero h1 {
+    margin: 0;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--text);
+}
+
+.overview-hero h1 span {
+    background: linear-gradient(90deg, var(--accent), var(--accent2, var(--accent)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.overview-hero p {
+    max-width: 620px;
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.overview-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.section-heading h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.section-heading p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 0.78rem;
+}
+
+.section-badge-live {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--muted);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+}
+
+/* =====================================================
+   DATASET STATISTICS CARDS
+===================================================== */
+
+.overview-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.overview-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--panel);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.overview-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+}
+
+.overview-card-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--panel2);
+    color: var(--accent);
+    font-size: 1.05rem;
+}
+
+.overview-card-icon.warning { color: var(--yellow); }
+.overview-card-icon.danger { color: var(--red); }
+
+.overview-card-label {
+    display: block;
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.overview-card strong {
+    display: block;
+    color: var(--text);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+/* =====================================================
+   VISUAL ANALYTICS HUB
+===================================================== */
+
+.analytics-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.overview-chart-preview.small-widget {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 130px;
+}
+
+.chart-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chart-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.chart-title i { color: var(--accent); }
+
+/* Mini Waveform */
+.mini-waveform {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    padding-top: 5px;
+}
+
+.wave-bar {
+    flex: 1;
+    background: var(--panel2);
+    border-radius: 3px 3px 0 0;
+    transition: background 0.2s;
+}
+
+.wave-bar:hover { background: var(--accent); }
+
+/* Donut Widget */
+.donut-widget .chart-title i { color: var(--accent2); }
+
+.donut-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.donut-chart {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--accent) 0deg 226deg,
+        var(--accent2) 226deg 341deg,
+        var(--yellow) 341deg 360deg
+    );
+    flex-shrink: 0;
+    position: relative;
+}
+
+.donut-chart::after {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    background: var(--panel);
+    border-radius: 50%;
+}
+
+.donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.65rem;
+    color: var(--muted);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-item .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+/* Heatmap Grid */
+.heatmap-widget .chart-title i { color: var(--yellow); }
+
+.heatmap-grid {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.h-row {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+}
+
+.h-cell {
+    flex: 1;
+    border-radius: 4px;
+}
+
+.heat-100 { background: var(--accent); opacity: 1; }
+.heat-90 { background: var(--accent); opacity: 0.85; }
+.heat-80 { background: var(--accent); opacity: 0.7; }
+.heat-70 { background: var(--accent); opacity: 0.55; }
+.heat-60 { background: var(--accent); opacity: 0.4; }
+.heat-50 { background: var(--panel2); }
+.heat-40 { background: var(--accent2); opacity: 0.4; }
+.heat-20 { background: var(--accent2); opacity: 0.7; }
+.heat-10 { background: var(--panel2); }
+
+/* =====================================================
+   TOOLS GRID
+===================================================== */
+
+.overview-tools {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.overview-tool {
+    position: relative;
+    display: flex;
+    gap: 18px;
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--panel);
+    overflow: hidden;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.overview-tool:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+.tool-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: var(--panel2);
+    color: var(--accent);
+    font-size: 1.15rem;
+}
+
+.tool-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.tool-content h3 {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.98rem;
+    font-weight: 700;
+}
+
+.tool-content p {
+    margin: 6px 0 14px;
+    color: var(--muted);
+    font-size: 0.78rem;
+    line-height: 1.55;
+}
+
+.tool-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* =====================================================
+   PREMIUM BADGE & TAGS
+===================================================== */
+
+.premium-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--yellow);
+    background: var(--panel2);
+    border: 1px solid var(--border);
+}
+
+.tool-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tool-tags span {
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.62rem;
+    font-weight: 500;
+}
+
+/* =====================================================
+   QUICK START BANNER
+===================================================== */
+
+.overview-quick {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 24px;
+    border-radius: 16px;
+    border: 1px solid var(--accent);
+    background: linear-gradient(135deg, var(--panel) 0%, var(--panel2) 100%);
+    box-shadow: 0 4px 20px rgba(124, 106, 246, 0.05);
+}
+
+.quick-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    color: var(--white, #fff);
+    background: var(--accent);
+    box-shadow: 0 6px 20px rgba(124, 106, 246, 0.3);
+    font-size: 1.1rem;
+}
+
+.quick-content h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.quick-content p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+#overviewPanel::-webkit-scrollbar {
+    width: 6px;
+}
+
+#overviewPanel::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+#overviewPanel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+===================================================== */
+
+@media (max-width: 1050px) {
+    .analytics-row {
+        grid-template-columns: 1fr;
+    }
+    .overview-chart-preview.small-widget {
+        height: auto;
+    }
+}
+
+@media (max-width: 900px) {
+    .overview-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .overview-tools {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    #overviewPanel {
+        padding: 16px;
+    }
+
+    .overview-hero {
+        padding: 24px;
+    }
+
+    .overview-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .overview-card {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .overview-card-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 0.9rem;
+    }
+
+    .overview-card strong {
+        font-size: 1.25rem;
+    }
+
+    .overview-tool {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 430px) {
+    .overview-stats {
+        grid-template-columns: 1fr;
+    }
+}
+</style>

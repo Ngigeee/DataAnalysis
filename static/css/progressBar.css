@@ -1,0 +1,46 @@
+.upload-progress{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,.45);
+    z-index:9999;
+}
+
+.progress-circle{
+    position:relative;
+    width:120px;
+    height:120px;
+}
+
+.progress-circle svg{
+    transform:rotate(-90deg);
+}
+
+.progress-circle circle{
+    fill:none;
+    stroke-width:10;
+}
+
+.progress-circle .bg{
+    stroke:#ddd;
+}
+
+.progress-circle .progress{
+    stroke:#4CAF50;
+    stroke-linecap:round;
+    stroke-dasharray:326.73; /* 2πr where r=52 */
+    stroke-dashoffset:326.73;
+    transition:stroke-dashoffset .2s linear;
+}
+
+.progress-text{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+    font-weight:bold;
+}

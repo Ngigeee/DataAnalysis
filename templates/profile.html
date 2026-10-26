@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Kijarney Data Science Studio</title>
+    {% include "reusables/home/metadata.html" %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <!-- Cloudflare hosted FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+</head>
+<body>
+
+    <div class="studio-layout">
+
+        <!-- =====================================================
+             SIDEBAR / USER PROFILE
+        ====================================================== -->
+        <div class="card sidebar-profile">
+
+            <div class="avatar-wrapper">
+
+                {% if session.get('user', {}).get('profile_pic') %}
+
+                    <img
+                        src="{{ session.get('user', {}).get('profile_pic') }}"
+                        alt="Avatar"
+                        class="avatar"
+                    >
+
+                {% else %}
+
+                    <div class="avatar">
+                        {{ session.get('user', {}).get('username', 'U')[0] | upper }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <h2 class="username">
+                {{ session.get('user', {}).get('username', 'Data Scientist') }}
+            </h2>
+
+            <p class="user-email">
+                {{ session.get('user', {}).get('email', 'user@kijarney.co.ke') }}
+            </p>
+
+
+            <!-- Account Tier -->
+
+            {% if session.get('user', {}).get('is_premium', false) %}
+
+                <span class="tier-badge">
+                    <i
+                        class="fa-solid fa-crown"
+                        style="color: #f59e0b;"
+                    ></i>
+                    Premium Account
+                </span>
+
+            {% else %}
+
+                <span class="tier-badge">
+                    <i class="fa-solid fa-bolt"></i>
+                    Free Account
+                </span>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 STORAGE QUOTA
+            ================================================== -->
+
+            <div class="quota-box">
+
+                <div class="quota-header">
+
+                    <span>
+                        Storage Used
+                    </span>
+
+                    <span>
+                        <strong id="storage-used">
+                            0 MB
+                        </strong>
+
+                        /
+
+                        <span id="storage-limit">
+                            500 MB
+                        </span>
+                    </span>
+
+                </div>
+
+
+                <div class="progress-bar-container">
+
+                    <div
+                        id="storage-progress"
+                        class="progress-bar-fill"
+                        style="width: 0%;"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Sidebar Menu -->
+
+            <div class="sidebar-menu">
+
+                <a
+                    href="{{ url_for('home') }}"
+                    class="menu-link"
+                >
+                    <i class="fa-solid fa-house"></i>
+                    Home Dashboard
+                </a>
+
+
+                <a
+                    href="{{ url_for('coming_page') }}"
+                    class="menu-link"
+                >
+                    <i class="fa-solid fa-chart-line"></i>
+                    Advanced Analytics
+                </a>
+
+
+                <a
+                    href="#datasets"
+                    class="menu-link"
+                >
+                    <i class="fa-solid fa-database"></i>
+                    My Datasets
+                </a>
+
+
+                <a
+                    href="#copies"
+                    class="menu-link"
+                >
+                    <i class="fa-solid fa-copy"></i>
+                    Dataset Copies
+                </a>
+
+
+                <a
+                    href="#models"
+                    class="menu-link"
+                >
+                    <i class="fa-solid fa-brain"></i>
+                    My Models
+                </a>
+
+
+                <a
+                    href="#api-section"
+                    class="menu-link"
+                >
+                    <i class="fa-solid fa-key"></i>
+                    API Keys
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             MAIN WORKSPACE
+        ====================================================== -->
+
+        <div class="main-workspace">
+
+
+            <!-- =================================================
+                 DATASETS
+            ================================================== -->
+
+            <div
+                class="card"
+                id="datasets"
+            >
+
+                <div class="section-header">
+
+                    <h3 class="section-title">
+
+                        <i class="fa-solid fa-database"></i>
+
+                        Saved Datasets
+
+                    </h3>
+
+
+                    <a
+                        href="{{ url_for('coming_page') }}"
+                        class="btn btn-primary"
+                    >
+
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                        Upload
+
+                    </a>
+
+                </div>
+
+
+                <!-- JavaScript will render datasets here -->
+
+                <div
+                    class="workspace-list"
+                    id="dataset-list"
+                >
+
+                    <div class="empty-state">
+
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+
+                        <p>
+                            Loading datasets...
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DATASET COPIES
+            ================================================== -->
+
+            <div
+                class="card"
+                id="copies"
+            >
+
+                <div class="section-header">
+
+                    <h3 class="section-title">
+
+                        <i class="fa-solid fa-copy"></i>
+
+                        Dataset Copies
+
+                    </h3>
+
+                </div>
+
+
+                <!-- JavaScript will render copies here -->
+
+                <div
+                    class="workspace-list"
+                    id="copy-list"
+                >
+
+                    <div class="empty-state">
+
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+
+                        <p>
+                            Loading dataset copies...
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MACHINE LEARNING MODELS
+            ================================================== -->
+
+            <div
+                class="card"
+                id="models"
+            >
+
+                <div class="section-header">
+
+                    <h3 class="section-title">
+
+                        <i class="fa-solid fa-brain"></i>
+
+                        Trained Models
+
+                    </h3>
+
+
+                    <a
+                        href="{{ url_for('coming_page') }}"
+                        class="btn btn-primary"
+                    >
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Train New
+
+                    </a>
+
+                </div>
+
+
+                <!-- JavaScript will render models here -->
+
+                <div
+                    class="workspace-list"
+                    id="model-list"
+                >
+
+                    <div class="empty-state">
+
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+
+                        <p>
+                            Loading models...
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RECENT ACTIVITY
+            ================================================== -->
+
+            <div class="card">
+
+                <div class="section-header">
+
+                    <h3 class="section-title">
+
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+
+                        Recent Activity
+
+                    </h3>
+
+                </div>
+
+
+                <div
+                    class="activity-timeline"
+                    id="activity-list"
+                >
+
+                    <div class="activity-item">
+
+                        <div class="activity-title">
+
+                            Loading activity...
+
+                        </div>
+
+                        <div class="activity-time">
+
+                            Please wait...
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 API KEY
+            ================================================== -->
+
+            <div
+                class="card"
+                id="api-section"
+            >
+
+                <div class="section-header">
+
+                    <h3 class="section-title">
+
+                        <i class="fa-solid fa-key"></i>
+
+                        API Key
+
+                    </h3>
+
+
+                    <a
+                        href="{{ url_for('coming_page') }}"
+                        class="btn btn-outline"
+                    >
+
+                        <i class="fa-solid fa-rotate"></i>
+
+                        Reset
+
+                    </a>
+
+                </div>
+
+
+                <p
+                    style="
+                        font-size: 0.8rem;
+                        color: var(--text-muted);
+                        margin-bottom: 0.75rem;
+                    "
+                >
+
+                    Use your personal token to connect scripts
+                    to Kijarney.
+
+                </p>
+
+
+                <div class="api-key-box">
+
+                    <span class="api-key-mask">
+                        Loading...
+                    </span>
+
+
+                    <i
+                        class="fa-regular fa-copy"
+                        style="
+                            cursor: pointer;
+                            color: var(--primary-color);
+                        "
+                        title="Copy Key"
+                        onclick="copyAPIKey()"
+                    ></i>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         RENAME MODAL
+    ========================================================== -->
+
+    <div
+        id="rename-modal"
+        class="modal-overlay"
+        style="display: none;"
+    >
+
+        <div class="card rename-modal">
+
+            <div class="section-header">
+
+                <h3 class="section-title">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                    Rename
+
+                </h3>
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    onclick="closeRenameModal()"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+
+            <div style="margin-top: 1rem;">
+
+                <label
+                    for="rename-input"
+                    style="
+                        display: block;
+                        margin-bottom: 0.5rem;
+                    "
+                >
+                    New Name
+                </label>
+
+
+                <input
+                    type="text"
+                    id="rename-input"
+                    class="form-control"
+                    placeholder="Enter new name"
+                >
+
+            </div>
+
+
+            <div
+                style="
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 0.5rem;
+                    margin-top: 1rem;
+                "
+            >
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    onclick="closeRenameModal()"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="confirmRename()"
+                >
+                    <i class="fa-solid fa-check"></i>
+                    Rename
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         DELETE CONFIRMATION MODAL
+    ========================================================== -->
+
+    <div
+        id="delete-modal"
+        class="modal-overlay"
+        style="display: none;"
+    >
+
+        <div class="card delete-modal">
+
+            <div class="section-header">
+
+                <h3 class="section-title">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                    Confirm Delete
+
+                </h3>
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    onclick="closeDeleteModal()"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+
+            <p
+                style="
+                    margin-top: 1rem;
+                    color: var(--text-muted);
+                "
+            >
+
+                Are you sure you want to delete this item?
+
+                This action cannot be undone.
+
+            </p>
+
+
+            <div
+                style="
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 0.5rem;
+                    margin-top: 1.25rem;
+                "
+            >
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    onclick="closeDeleteModal()"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="confirm-delete-btn"
+                    onclick="confirmDelete()"
+                >
+
+                    <i class="fa-solid fa-trash"></i>
+
+                    Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+</html>

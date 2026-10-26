@@ -1,0 +1,22 @@
+<div class="overlay" id="col-overlay" onclick="closeColPopup(event)">
+  <div class="popup-box" onclick="event.stopPropagation()">
+    <h5 id="col-popup-title">Column Actions</h5>
+    <select id="col-action">
+      <option value="">-- Select Action --</option>
+      <option value="upper">Uppercase Column</option>
+      <option value="lower">Lowercase Column</option>
+      <option value="fill_mean">Fill Missing → Mean</option>
+      <option value="fill_median">Fill Missing → Median</option>
+      <option value="fill_mode">Fill Missing → Mode</option>
+      <option value="fill_custom">Fill Missing → Custom Value</option>
+      <option value="normalize">Normalize 0–1</option>
+      <option value="clear">Clear Column</option>
+      <option value="drop">Drop Column</option>
+    </select>
+    <input type="text" id="col-custom" placeholder="Custom fill value" style="display:none">
+    <div class="popup-actions">
+      <button class="tb-btn primary" onclick="applyColAction()"><i class="fas fa-check"></i> Apply</button>
+      <button class="tb-btn secondary" onclick="closeColPopup()"><i class="fas fa-xmark"></i> Close</button>
+    </div>
+  </div>
+</div>

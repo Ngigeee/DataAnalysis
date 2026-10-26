@@ -1,0 +1,937 @@
+
+/* ============================================================
+   THEME VARIABLES
+============================================================ */
+
+:root {
+
+    /* Main backgrounds */
+    --bg: #ffffff;
+    --card: #ffffff;
+
+    /* Panels */
+    --panel: #ffffff;
+    --panel2: #f8fafc;
+
+    /* Borders */
+    --border: #e2e8f0;
+
+    /* Brand */
+    --accent: #7c6af6;
+    --accent2: #38bdf8;
+
+    /* Status */
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+
+    /* Text */
+    --text: #0f172a;
+    --muted: #64748b;
+    --white: #ffffff;
+
+    /* Fonts */
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Plus Jakarta Sans', sans-serif;
+
+}
+
+
+/* ============================================================
+   DARK THEME
+   Neutral black / gray
+============================================================ */
+
+body.dark {
+
+    --bg: #121212;
+
+    --card: #1a1a1a;
+
+    --panel: #1a1a1a;
+
+    --panel2: #212121;
+
+    --border: #2a2a2a;
+
+    --accent: #7c6af6;
+
+    --accent2: #38bdf8;
+
+    --green: #22c55e;
+
+    --red: #ef4444;
+
+    --yellow: #f59e0b;
+
+    --text: #e0e0e0;
+
+    --muted: #9e9e9e;
+
+    --white: #ffffff;
+
+}
+
+
+/* ============================================================
+   GLOBAL
+============================================================ */
+
+* {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+    font-family:
+        var(--sans),
+        Inter,
+        'Segoe UI',
+        Arial,
+        sans-serif;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    min-height: 100vh;
+
+    padding: 30px 15px;
+
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease;
+
+}
+
+
+/* ============================================================
+   CONTAINER
+============================================================ */
+
+.container {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    width: 100%;
+
+}
+
+
+/* ============================================================
+   TOP BAR
+============================================================ */
+
+.topbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+
+    flex-wrap: wrap;
+
+}
+
+
+/* ============================================================
+   BACK
+============================================================ */
+
+.back {
+
+    text-decoration: none;
+
+    color: var(--text);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-weight: 600;
+
+    transition: color 0.2s ease;
+
+}
+
+
+.back:hover {
+
+    color: var(--accent);
+
+}
+
+
+/* ============================================================
+   PAGE TITLE
+============================================================ */
+
+.page-title {
+
+    font-size: 1.5rem;
+
+    font-weight: 750;
+
+    color: var(--text);
+
+}
+
+
+/* ============================================================
+   CARD
+============================================================ */
+
+.card {
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0, 0, 0, .03);
+
+    transition:
+        background-color .25s ease,
+        border-color .25s ease,
+        color .25s ease;
+
+}
+
+
+/* ============================================================
+   MODEL HEADER
+============================================================ */
+
+.model-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    flex-wrap: wrap;
+
+}
+
+
+/* ============================================================
+   MODEL ICON
+============================================================ */
+
+.model-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
+
+    color: var(--white);
+
+    font-size: 1.5rem;
+
+}
+
+
+/* ============================================================
+   MODEL HEADING
+============================================================ */
+
+.model-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+}
+
+
+.model-heading h1 {
+
+    color: var(--text);
+
+    font-size: 1.35rem;
+
+    margin-bottom: 4px;
+
+}
+
+
+.model-heading p {
+
+    color: var(--muted);
+
+    font-size: .85rem;
+
+}
+
+
+/* ============================================================
+   RUN BUTTON
+============================================================ */
+
+.run-button {
+
+    border: none;
+
+    background: var(--accent);
+
+    color: var(--white);
+
+    padding: 10px 16px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    transition:
+        background .2s ease,
+        transform .15s ease;
+
+}
+
+
+.run-button:hover {
+
+    background: var(--accent2);
+
+}
+
+
+.run-button:active {
+
+    transform: scale(.98);
+
+}
+
+
+/* ============================================================
+   DETAILS GRID
+============================================================ */
+
+.details-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 15px;
+
+    margin-top: 25px;
+
+}
+
+
+/* ============================================================
+   DETAIL
+============================================================ */
+
+.detail {
+
+    background: var(--bg);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    transition:
+        background .25s ease,
+        border-color .25s ease;
+
+}
+
+
+/* ============================================================
+   DETAIL LABEL
+============================================================ */
+
+.detail-label {
+
+    font-size: .7rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: .05em;
+
+    color: var(--muted);
+
+    margin-bottom: 5px;
+
+    font-weight: 700;
+
+}
+
+
+/* ============================================================
+   DETAIL VALUE
+============================================================ */
+
+.detail-value {
+
+    color: var(--text);
+
+    font-size: .95rem;
+
+    font-weight: 650;
+
+    word-break: break-word;
+
+}
+
+
+/* ============================================================
+   SECTION TITLE
+============================================================ */
+
+.section-title {
+
+    color: var(--text);
+
+    font-size: 1rem;
+
+    margin-bottom: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.section-title i {
+
+    color: var(--accent);
+
+}
+
+
+/* ============================================================
+   FEATURES
+============================================================ */
+
+.features {
+
+    display: flex;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.feature {
+
+    padding: 7px 11px;
+
+    border-radius: 7px;
+
+    background: var(--bg);
+
+    border: 1px solid var(--border);
+
+    font-family: var(--mono);
+
+    font-size: .8rem;
+
+    color: var(--text);
+
+}
+
+
+/* ============================================================
+   TARGET BADGE
+============================================================ */
+
+.target-badge {
+
+    display: inline-flex;
+
+    padding: 7px 12px;
+
+    border-radius: 8px;
+
+    background:
+        rgba(124, 106, 246, .12);
+
+    color: var(--accent);
+
+    border: 1px solid
+        rgba(124, 106, 246, .2);
+
+    font-family: var(--mono);
+
+    font-weight: 700;
+
+}
+
+
+/* ============================================================
+   METRICS
+============================================================ */
+
+.metrics {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(150px, 1fr)
+        );
+
+    gap: 12px;
+
+}
+
+
+/* ============================================================
+   METRIC
+============================================================ */
+
+.metric {
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    background: var(--bg);
+
+    border: 1px solid var(--border);
+
+    transition:
+        background .25s ease,
+        border-color .25s ease;
+
+}
+
+
+/* ============================================================
+   METRIC NAME
+============================================================ */
+
+.metric-name {
+
+    color: var(--muted);
+
+    font-size: .75rem;
+
+    margin-bottom: 5px;
+
+}
+
+
+/* ============================================================
+   METRIC VALUE
+============================================================ */
+
+.metric-value {
+
+    color: var(--text);
+
+    font-size: 1.1rem;
+
+    font-weight: 750;
+
+}
+
+
+/* ============================================================
+   RUN PANEL
+============================================================ */
+
+#run-panel {
+
+    display: none;
+
+}
+
+
+/* ============================================================
+   INPUT GRID
+============================================================ */
+
+.input-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 15px;
+
+}
+
+
+/* ============================================================
+   INPUT GROUP
+============================================================ */
+
+.input-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+}
+
+
+.input-group label {
+
+    color: var(--text);
+
+    font-size: .8rem;
+
+    font-weight: 700;
+
+}
+
+
+/* ============================================================
+   INPUT
+============================================================ */
+
+.input-group input {
+
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border-radius: 8px;
+
+    border: 1px solid var(--border);
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    outline: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+}
+
+
+.input-group input::placeholder {
+
+    color: var(--muted);
+
+}
+
+
+.input-group input:focus {
+
+    border-color: var(--accent);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(124, 106, 246, .12);
+
+    background: var(--card);
+
+}
+
+
+/* ============================================================
+   PREDICT ROW
+============================================================ */
+
+.predict-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 20px;
+
+    flex-wrap: wrap;
+
+}
+
+
+/* ============================================================
+   PREDICT BUTTON
+============================================================ */
+
+.predict-button {
+
+    border: none;
+
+    background: var(--accent);
+
+    color: var(--white);
+
+    padding: 11px 20px;
+
+    border-radius: 9px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .15s ease;
+
+}
+
+
+.predict-button:hover {
+
+    background: var(--accent2);
+
+}
+
+
+.predict-button:active {
+
+    transform: scale(.98);
+
+}
+
+
+/* ============================================================
+   RESULT
+============================================================ */
+
+#result {
+
+    display: none;
+
+    margin-top: 20px;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    background: var(--bg);
+
+    border: 1px solid var(--border);
+
+    transition:
+        background .25s ease,
+        border-color .25s ease;
+
+}
+
+
+/* ============================================================
+   PREDICTION LABEL
+============================================================ */
+
+.prediction-label {
+
+    color: var(--muted);
+
+    font-size: .8rem;
+
+    margin-bottom: 5px;
+
+}
+
+
+/* ============================================================
+   PREDICTION VALUE
+============================================================ */
+
+.prediction-value {
+
+    font-size: 2rem;
+
+    font-weight: 800;
+
+    color: var(--green);
+
+    word-break: break-word;
+
+}
+
+
+/* ============================================================
+   ERROR
+============================================================ */
+
+.error {
+
+    color: var(--red);
+
+    font-size: .85rem;
+
+}
+
+
+/* ============================================================
+   MOBILE
+============================================================ */
+
+@media (max-width: 650px) {
+
+    body {
+
+        padding: 15px 10px;
+
+    }
+
+
+    .card {
+
+        padding: 18px;
+
+        border-radius: 12px;
+
+    }
+
+
+    .details-grid,
+    .input-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .model-heading h1 {
+
+        font-size: 1.1rem;
+
+    }
+
+
+    .model-icon {
+
+        width: 50px;
+
+        height: 50px;
+
+        font-size: 1.25rem;
+
+    }
+
+
+    .page-title {
+
+        font-size: 1.25rem;
+
+    }
+
+}
+
+
+/* ============================================================
+   SMALL MOBILE
+============================================================ */
+
+@media (max-width: 400px) {
+
+    body {
+
+        padding: 10px 8px;
+
+    }
+
+
+    .card {
+
+        padding: 15px;
+
+    }
+
+
+    .model-heading {
+
+        gap: 10px;
+
+    }
+
+
+    .run-button {
+
+        width: 100%;
+
+    }
+
+
+    .predict-button {
+
+        width: 100%;
+
+    }
+
+
+    .prediction-value {
+
+        font-size: 1.7rem;
+
+    }
+
+}

@@ -1,0 +1,773 @@
+
+<!-- TOP BAR -->
+<div class="topbar">
+
+    <!-- ================= TOP ROW ================= -->
+    <div class="topbar-row topbar-row-main">
+
+        <div style="display:flex;align-items:center;gap:12px;">
+
+            <button class="menu-btn" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="brand">
+    <img src="{{ url_for('static', filename='images/favicon.png') }}" alt="Kijarney Logo" class="logo-img"> 
+    Kijarney
+</div>
+
+        </div>
+
+        <div class="topbar-user">
+
+            {% if username != 'Guest' and username != 'guest' %}
+
+            <!-- Logged In -->
+            <div class="user-menu-container" style="position:relative;display:inline-block;">
+
+                <button class="tb-btn avatar-btn"
+                        onclick="toggleUserMenu()"
+                        style="border-radius:50%;width:38px;height:38px;padding:0;display:flex;align-items:center;justify-content:center;">
+
+                    <i class="fas fa-user-circle" style="font-size:1.5rem;"></i>
+
+                </button>
+
+                <div id="userDropdown"
+                     class="user-dropdown"
+                     style="display:none;position:absolute;right:0;top:45px;background:var(--panel);border:1px solid var(--border);box-shadow:0 4px 12px rgba(0,0,0,.2);border-radius:10px;width:220px;z-index:1000;overflow:hidden;">
+
+                    <!-- Your existing dropdown stays unchanged -->
+
+                    <!-- User -->
+                    <div style="padding:15px; border-bottom:1px solid var(--border);">
+                        <div style="font-weight:bold;color:var(--text);">
+                            {{ username }}
+                        </div>
+                        <div style="font-size:.8rem;color:var(--muted);">
+                            Welcome back 👋
+                        </div>
+                    </div>
+
+                    <a href="/profile" class="dropdown-item">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+
+                    <a href="/settings" class="dropdown-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+
+                    <a href="/account" class="dropdown-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Account & Security</span>
+                    </a>
+
+                    <button class="dropdown-item"
+                            onclick="toggleTheme()"
+                            style="border:none;background:transparent;">
+                        <i id="theme-icon" class="fas fa-moon"></i>
+                        <span id="theme-text">Dark Mode</span>
+                    </button>
+
+                    <a href="/help" class="dropdown-item">
+                        <i class="fas fa-circle-question"></i>
+                        <span>Help</span>
+                    </a>
+
+                    <a href="/about" class="dropdown-item">
+                        <i class="fas fa-circle-info"></i>
+                        <span>About</span>
+                    </a>
+
+                    <div style="border-top:1px solid var(--border);"></div>
+
+                    <a href="/logout" class="dropdown-item logout-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% else %}
+
+            <a href="/login" class="tb-btn success"style="text-decoration:none;background:steelblue;">
+                <i class="fas fa-right-to-bracket"></i>
+                Sign In
+            </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <!-- ================= SECOND ROW ================= -->
+    <div class="topbar-row topbar-row-tools">
+
+        <!-- Dataset Dropdown -->
+        <div class="dataset-dropdown">
+
+            <button class="tb-btn secondary"
+                    onclick="toggleDatasetsMenu()">
+
+                <i class="fas fa-folder-open"></i>
+                My Datasets
+                <i class="fas fa-chevron-down"></i>
+
+            </button>
+
+            <div id="datasetsMenu"
+                 class="datasets-menu">
+                <!-- Filled dynamically -->
+            </div>
+
+        </div>
+
+        <div class="topbar-actions">
+
+            <button class="tb-btn secondary" onclick="resetData()">
+                <i class="fas fa-rotate-right"></i>
+                Reset
+            </button>
+
+            <!-- Export Dropdown -->
+<div class="export-dropdown" style="position:relative;display:inline-block;">
+
+    <button class="tb-btn success" onclick="toggleExportMenu()">
+        <i class="fas fa-download"></i>
+        Export
+        <i class="fas fa-chevron-down"></i>
+    </button>
+
+    <div id="exportMenu"
+         class="export-menu">
+
+        <button onclick="exportCSV()">
+            <i class="fas fa-file-csv"></i>
+            Export CSV
+        </button>
+
+        <button onclick="exportPDFReport()">
+            <i class="fas fa-file-pdf"></i>
+            PDF Report
+        </button>
+
+        <button onclick="exportSummaryStats()">
+            <i class="fas fa-chart-bar"></i>
+            Summary Statistics
+        </button>
+
+    </div>
+
+</div>
+
+        </div>
+
+    </div>
+
+<!-- Overlay -->
+<div class="mobilesidebar-overlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar -->
+<aside class="mobilesidebar" id="mobilesidebar">
+
+ <div class="section-spacer"></div>
+ <div class="section-spacer"></div>
+<!-- Upload -->
+<div class="s-section">
+
+    <span class="s-label">
+        <i class="fas fa-upload"></i> Upload Dataset
+    </span>
+
+    <label class="upload-area">
+        <input type="file" class="fileInput" accept=".csv,.json">
+
+        <i class="fas fa-cloud-arrow-up" 
+        style="font-size:1.2rem;margin-bottom:5px;color:var(--accent)">
+        </i>
+        <br>
+
+        Click to upload CSV or JSON
+
+    </label>
+
+    <div class="section-spacer"></div>
+
+</div>
+
+
+
+<!-- Inspection -->
+<div class="s-section">
+
+    <span class="s-label">
+        <i class="fas fa-magnifying-glass"></i> Inspection
+    </span>
+
+
+    <button class="s-btn" onclick="showHead()">
+        <i class="fas fa-arrow-down-1-9"></i> Head (5 rows)
+    </button>
+
+
+    <button class="s-btn" onclick="showTail()">
+        <i class="fas fa-arrow-up-1-9"></i> Tail (5 rows)
+    </button>
+
+
+    <button class="s-btn" onclick="showDtypes()">
+        <i class="fas fa-tag"></i> Data Types
+    </button>
+
+
+    <button class="s-btn" onclick="showDescribe()">
+        <i class="fas fa-chart-simple"></i> Describe
+    </button>
+
+
+    <button class="s-btn" onclick="showInfo()">
+        <i class="fas fa-circle-info"></i> Info
+    </button>
+
+
+    <button class="s-btn" onclick="showColumns()">
+        <i class="fas fa-columns"></i> View Columns
+    </button>
+
+
+    <button class="s-btn" onclick="showShape()">
+        <i class="fas fa-ruler-combined"></i> Shape
+    </button>
+
+</div>
+
+
+
+
+<!-- Exploring -->
+<div class="s-section">
+
+    <span class="s-label">
+        <i class="fas fa-binoculars"></i> Exploring
+    </span>
+
+
+    <button class="s-btn warn" onclick="showDuplicates()">
+        <i class="fas fa-copy"></i> See Duplicates
+    </button>
+
+
+    <button class="s-btn warn" onclick="showMissing()">
+        <i class="fas fa-triangle-exclamation"></i> Missing Values
+    </button>
+
+</div>
+
+
+
+
+
+<!-- Cleaning -->
+<div class="s-section">
+
+    <span class="s-label">
+        <i class="fas fa-broom"></i> Cleaning
+    </span>
+
+
+    <button class="s-btn danger" onclick="removeDuplicates()">
+        <i class="fas fa-trash"></i> Remove Duplicates
+    </button>
+
+
+    <button class="s-btn danger" onclick="dropMissing()">
+        <i class="fas fa-filter"></i> Drop Missing Rows
+    </button>
+
+
+    <button class="s-btn" onclick="fillMissing('mean')">
+        <i class="fas fa-chart-bar"></i> Fill Missing → Mean
+    </button>
+
+
+    <button class="s-btn" onclick="fillMissing('median')">
+        <i class="fas fa-chart-bar"></i> Fill Missing → Median
+    </button>
+
+
+    <button class="s-btn" onclick="fillMissing('mode')">
+        <i class="fas fa-chart-bar"></i> Fill Missing → Mode
+    </button>
+
+</div>
+
+
+
+
+
+<!-- DataFrames / Copies -->
+<div class="s-section">
+
+    <span class="s-label">
+        <i class="fas fa-copy"></i> DataFrames
+    </span>
+
+
+    <button class="s-btn go" onclick="createCopy()">
+        <i class="fas fa-plus"></i> Copy DataFrame
+    </button>
+
+
+    <button class="s-btn" onclick="toggleCopies()">
+        <i class="fas fa-folder-open"></i> View Copies
+    </button>
+
+
+    <div class="copies-list" id="copies-list" style="display:none;"></div>
+
+</div>
+
+
+
+
+
+<!-- Visualization -->
+<div class="s-section">
+
+    <span class="s-label">
+        <i class="fas fa-chart-pie"></i> Visualization
+    </span>
+
+
+    <button class="s-btn" onclick="openViz('histogram')">
+        <i class="fas fa-chart-column"></i> Histogram
+    </button>
+
+
+    <button class="s-btn" onclick="openViz('scatter')">
+        <i class="fas fa-braille"></i> Scatter Plot
+    </button>
+
+
+    <button class="s-btn" onclick="openViz('bar')">
+        <i class="fas fa-chart-bar"></i> Bar Chart
+    </button>
+
+</div>
+
+
+
+
+
+
+<!-- More Visualization -->
+<!-- More Visualization Premium -->
+<div class="s-section">
+
+    <span class="s-label">
+        <i class="fas fa-layer-group"></i> More Charts
+    </span>
+
+
+    <button class="s-btn" onclick="openPremiumOverlay()">
+        <i class="fas fa-crown"></i> More Visualization
+        <i class="fas fa-lock" style="float:right"></i>
+    </button>
+
+
+</div>
+
+
+
+
+
+
+<!-- Models Premium -->
+<div class="s-section">
+
+    <span class="s-label">
+        <i class="fas fa-robot"></i>Numerical Models
+    </span>
+
+
+    <button class="s-btn" onclick="handleModelClick('linear_regression')">
+        <i class="fas fa-chart-line"></i> Linear Regression
+        <i class="fas fa-lock" style="float:right"></i>
+    </button>
+
+<span class="s-label">
+        <i class="fas fa-robot"></i>Categorical Models
+    </span>
+    <button class="s-btn" onclick="handleModelClick('logistic_regression')">
+        <i class="fas fa-code-branch"></i> Logistic Regression
+        <i class="fas fa-lock" style="float:right"></i>
+    </button>
+
+
+    <button class="s-btn" onclick="handleModelClick('decision_tree')">
+        <i class="fas fa-sitemap"></i> Decision Tree
+        <i class="fas fa-lock" style="float:right"></i>
+    </button>
+
+
+</div>
+
+
+</aside>
+
+<!-- popup for view dataset -->
+<div id="copyMenu" class="copy-menu">
+    <button onclick="useSelectedCopy()">
+        <i class="fas fa-database"></i>
+        Use as Dataset
+    </button>
+
+    <button onclick="renameSelectedCopy()">
+        <i class="fas fa-pen"></i>
+        Rename
+    </button>
+
+    <button class="danger" onclick="deleteSelectedCopy()">
+        <i class="fas fa-trash"></i>
+        Delete
+    </button>
+</div>
+
+<script>
+const sidebar = document.getElementById("mobilesidebar");
+const overlay = document.querySelector(".mobilesidebar-overlay");
+
+function toggleSidebar(){
+
+    sidebar.classList.toggle("open");
+    overlay.classList.toggle("show");
+
+}
+
+// Close sidebar when a button is clicked (mobile)
+document.querySelectorAll(".mobilesidebar .s-btn").forEach(btn=>{
+
+    btn.addEventListener("click",()=>{
+
+        if(window.innerWidth<=768){
+
+            sidebar.classList.remove("open");
+            overlay.classList.remove("show");
+
+        }
+
+    });
+
+});
+
+
+//check login status
+function toggleUserMenu() {
+    const dropdown = document.getElementById("userDropdown");
+    if (dropdown) {
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+}
+// =====================================================
+// GLOBAL ACTIONS & OVERVIEW
+// =====================================================
+
+async function loadOverview() {
+
+    try {
+
+        const response = await fetch("/overview");
+
+        if (!response.ok) {
+            throw new Error("Failed to load overview");
+        }
+
+        const result = await response.json();
+
+        if (!result.success) {
+            throw new Error(
+                result.error || "Failed to load overview"
+            );
+        }
+
+        console.log("Overview:", result);
+
+
+        // ------------------------------------------
+        // DATASET SUMMARY
+        // ------------------------------------------
+
+        const rows =
+            document.getElementById("overviewRows");
+
+        const columns =
+            document.getElementById("overviewColumns");
+
+        const missing =
+            document.getElementById("overviewMissing");
+
+        const duplicates =
+            document.getElementById("overviewDuplicates");
+
+
+        if (rows) {
+            rows.textContent =
+                Number(result.dataset.rows).toLocaleString();
+        }
+
+        if (columns) {
+            columns.textContent =
+                Number(result.dataset.columns).toLocaleString();
+        }
+
+        if (missing) {
+            missing.textContent =
+                Number(
+                    result.quality.missing_values
+                ).toLocaleString();
+        }
+
+        if (duplicates) {
+            duplicates.textContent =
+                Number(
+                    result.quality.duplicate_rows
+                ).toLocaleString();
+        }
+
+
+        // ------------------------------------------
+        // DATASET NAME
+        // ------------------------------------------
+
+        const datasetLabel =
+            document.getElementById("dataset-label");
+
+        if (datasetLabel) {
+
+            datasetLabel.textContent =
+                result.dataset.name;
+        }
+
+
+        // ------------------------------------------
+        // DATA TYPE INFORMATION
+        // ------------------------------------------
+
+        const numeric =
+            result.column_types?.numeric || 0;
+
+        const categorical =
+            result.column_types?.categorical || 0;
+
+
+        console.log(
+            "Numeric columns:",
+            numeric
+        );
+
+        console.log(
+            "Categorical columns:",
+            categorical
+        );
+
+
+        // ------------------------------------------
+        // COMPLETENESS
+        // ------------------------------------------
+
+        console.log(
+            "Dataset completeness:",
+            result.quality.completeness + "%"
+        );
+
+
+        // ------------------------------------------
+        // MEMORY
+        // ------------------------------------------
+
+        console.log(
+            "Memory:",
+            result.memory.mb + " MB"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Overview error:",
+            error
+        );
+
+        toast(
+            "Failed to load dataset overview",
+            "error"
+        );
+    }
+}
+
+function showGlobalOverview() {
+
+    const workspace = document.getElementById("dataWorkspace");
+    const overview = document.getElementById("overviewPanel");
+    const toolbar = document.getElementById("datasetToolbar");
+
+    // Hide dataset workspace
+    if (workspace) {
+        workspace.style.display = "none";
+    }
+
+    // Hide dataset toolbar
+    if (toolbar) {
+        toolbar.style.display = "none";
+    }
+
+    // Show overview
+    if (overview) {
+        overview.style.display = "block";
+    }
+     loadOverview();
+}
+
+
+function showDatasetWorkspace() {
+
+    const workspace = document.getElementById("dataWorkspace");
+    const overview = document.getElementById("overviewPanel");
+    const toolbar = document.getElementById("datasetToolbar");
+
+    // Show dataset toolbar
+    if (toolbar) {
+        toolbar.style.display = "block";
+    }
+
+    // Show dataset workspace
+    if (workspace) {
+        workspace.style.display = "flex";
+    }
+
+    // Hide overview
+    if (overview) {
+        overview.style.display = "none";
+    }
+}
+//show export dropdown menu
+function toggleExportMenu() {
+
+    const menu = document.getElementById("exportMenu");
+
+    if (!menu) return;
+
+    menu.classList.toggle("show");
+}
+
+
+// Close export menu when clicking outside
+document.addEventListener("click", function(event) {
+
+    const dropdown = document.querySelector(".export-dropdown");
+    const menu = document.getElementById("exportMenu");
+
+    if (
+        dropdown &&
+        menu &&
+        !dropdown.contains(event.target)
+    ) {
+        menu.classList.remove("show");
+    }
+
+});
+// Close user dropdown when clicking outside of it
+window.addEventListener("click", function(event) {
+    const container = document.querySelector(".user-menu-container");
+    const dropdown = document.getElementById("userDropdown");
+    if (container && dropdown && !container.contains(event.target)) {
+        dropdown.style.display = "none";
+    }
+});
+
+//handle models toggling
+function handleModelClick(modelType) {
+
+isPremiumUser = true;
+
+if (!isPremiumUser) {
+    openPremiumOverlay();
+    return;
+}
+
+openModelOverlay(modelType);
+
+
+}
+
+
+async function openModelOverlay(modelType) {
+    const overlay = document.getElementById("modelOverlay");
+
+    // Set the currently selected model
+    overlay.dataset.model = modelType;
+
+    console.log("Opening model:", modelType);
+    console.log("Overlay model:", overlay.dataset.model);
+
+    // Update title
+    document.getElementById("modelTitle").textContent = getModelName(modelType);
+
+    // Clear previous model result
+    const resultDiv = document.getElementById("modelResult");
+    const resultContent = document.getElementById("modelResultContent");
+
+    if (resultDiv) {
+        resultDiv.style.display = "none";
+    }
+
+    if (resultContent) {
+        resultContent.innerHTML = "";
+    }
+
+    // Reset Primary Button state for "Run Model"
+    const actionButton = document.querySelector(".model-btn.primary");
+
+    if (actionButton) {
+        actionButton.innerHTML = `
+            <i class="fas fa-play"></i>
+            Run Model
+        `;
+        actionButton.disabled = false; // <--- FIX 1: Re-enable the button!
+        actionButton.onclick = runSelectedModel; // <--- FIX 2: Rebind to the run function!
+    }
+
+    // Open overlay
+    overlay.classList.add("active");
+
+    // Load fresh dataset/model data
+    await loadModelData();
+}
+
+function getModelName(modelType) {
+
+
+const names = {
+
+    linear_regression: "Linear Regression",
+
+    logistic_regression: "Logistic Regression",
+
+    decision_tree: "Decision Tree",
+
+    random_forest: "Random Forest"
+
+};
+
+return names[modelType] || "";
+
+
+}
+
+
+</script>

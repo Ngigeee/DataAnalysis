@@ -1,0 +1,1005 @@
+/* =========================================================
+   THEME VARIABLES
+========================================================= */
+
+:root {
+
+    --bg: #f8fafc;
+    --card: #ffffff;
+
+    --panel: #1a1d27;
+    --panel2: #20232f;
+
+    --border: #e2e8f0;
+
+    --accent: #7c6af6;
+    --accent2: #38bdf8;
+
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+
+    --text: #1e293b;
+    --muted: #64748b;
+    --white: #ffffff;
+
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Plus Jakarta Sans', sans-serif;
+
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark {
+
+    --bg: #030712;
+    --card: #0f172a;
+
+    --panel: #0f172a;
+    --panel2: #111827;
+
+    --border: #1e293b;
+
+    --accent: #818cf8;
+    --accent2: #38bdf8;
+
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --white: #ffffff;
+
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+    font-family:
+        var(--sans),
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    min-height: 100vh;
+
+    padding: 30px 15px;
+
+    transition:
+        background-color .25s ease,
+        color .25s ease;
+
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container {
+
+    max-width: 900px;
+
+    margin: auto;
+
+    width: 100%;
+
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+
+    flex-wrap: wrap;
+
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back {
+
+    text-decoration: none;
+
+    color: var(--text);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-weight: 600;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: .9rem;
+
+    transition:
+        color .2s ease;
+
+}
+
+
+.back:hover {
+
+    color: var(--accent);
+
+}
+
+
+/* =========================================================
+   TOP ACTIONS
+========================================================= */
+
+.top-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+}
+
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.page-title {
+
+    font-size: 1.5rem;
+
+    font-weight: 750;
+
+    color: var(--text);
+
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card {
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    padding: 30px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0, 0, 0, .03);
+
+    transition:
+        background-color .25s ease,
+        border-color .25s ease,
+        color .25s ease;
+
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.section-title {
+
+    font-size: 1.15rem;
+
+    margin-bottom: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: var(--text);
+
+}
+
+
+.section-title i {
+
+    color: var(--accent);
+
+}
+
+
+/* =========================================================
+   SUBTITLE
+========================================================= */
+
+.subtitle {
+
+    color: var(--muted);
+
+    font-size: .85rem;
+
+    line-height: 1.6;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* =========================================================
+   INPUT GRID
+========================================================= */
+
+.input-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 20px;
+
+}
+
+
+/* =========================================================
+   INPUT GROUP
+========================================================= */
+
+.input-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+}
+
+
+.input-group label {
+
+    font-size: .85rem;
+
+    font-weight: 700;
+
+    color: var(--text);
+
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.input-group input {
+
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border-radius: 10px;
+
+    border: 1px solid var(--border);
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    outline: none;
+
+    font-size: .95rem;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background-color .2s ease,
+        color .2s ease;
+
+}
+
+
+.input-group input::placeholder {
+
+    color: var(--muted);
+
+}
+
+
+.input-group input:focus {
+
+    border-color: var(--accent);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(124, 106, 246, .12);
+
+    background: var(--card);
+
+}
+
+
+/* =========================================================
+   ACTION ROW
+========================================================= */
+
+.action-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 15px;
+
+    margin-top: 30px;
+
+}
+
+
+/* =========================================================
+   PREDICT BUTTON
+========================================================= */
+
+.predict-button {
+
+    border: none;
+
+    background: var(--accent);
+
+    color: var(--white);
+
+    padding: 13px 24px;
+
+    border-radius: 10px;
+
+    font-weight: 700;
+
+    font-size: .95rem;
+
+    cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    transition:
+        background-color .2s ease,
+        transform .15s ease,
+        opacity .2s ease;
+
+}
+
+
+.predict-button:hover {
+
+    background: var(--accent2);
+
+}
+
+
+.predict-button:active {
+
+    transform: translateY(1px);
+
+}
+
+
+.predict-button:disabled {
+
+    opacity: .6;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+#result {
+
+    display: none;
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    border-radius: 14px;
+
+    background: var(--bg);
+
+    border: 1px solid var(--border);
+
+    text-align: center;
+
+    transition:
+        background-color .25s ease,
+        border-color .25s ease;
+
+}
+
+
+/* =========================================================
+   PREDICTION LABEL
+========================================================= */
+
+.prediction-label {
+
+    color: var(--muted);
+
+    font-size: .85rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: .05em;
+
+    margin-bottom: 8px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   PREDICTION VALUE
+========================================================= */
+
+.prediction-value {
+
+    font-size: 2.25rem;
+
+    font-weight: 800;
+
+    color: var(--green);
+
+    word-break: break-word;
+
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.error {
+
+    color: var(--red);
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================================
+   CODE VIEWER
+========================================================= */
+
+#code-card {
+
+    display: none;
+
+}
+
+
+/* =========================================================
+   CODE HEADER
+========================================================= */
+
+.code-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.code-header-left {
+
+    min-width: 0;
+
+}
+
+
+/* =========================================================
+   CODE DESCRIPTION
+========================================================= */
+
+.code-description {
+
+    color: var(--muted);
+
+    font-size: .85rem;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================================
+   CLOSE CODE BUTTON
+========================================================= */
+
+.close-code {
+
+    border: 1px solid var(--border);
+
+    background: transparent;
+
+    color: var(--text);
+
+    padding: 8px 12px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition:
+        border-color .2s ease,
+        color .2s ease,
+        background-color .2s ease;
+
+}
+
+
+.close-code:hover {
+
+    border-color: var(--accent);
+
+    color: var(--accent);
+
+    background: rgba(124, 106, 246, .06);
+
+}
+
+
+/* =========================================================
+   CODE WRAPPER
+========================================================= */
+
+.code-wrapper {
+
+    position: relative;
+
+    width: 100%;
+
+}
+
+
+/* =========================================================
+   CODE BLOCK
+========================================================= */
+
+.code-wrapper pre {
+
+    background: var(--panel);
+
+    color: var(--text);
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    overflow-x: auto;
+
+    font-family:
+        var(--mono),
+        Consolas,
+        Monaco,
+        "Courier New",
+        monospace;
+
+    font-size: .82rem;
+
+    line-height: 1.65;
+
+    white-space: pre;
+
+    min-height: 100px;
+
+    border: 1px solid var(--border);
+
+}
+
+
+/* Make code itself use monospace */
+
+.code-wrapper pre code {
+
+    font-family:
+        var(--mono),
+        Consolas,
+        Monaco,
+        "Courier New",
+        monospace;
+
+}
+
+
+/* =========================================================
+   COPY CODE BUTTON
+========================================================= */
+
+.copy-code {
+
+    position: absolute;
+
+    top: 10px;
+
+    right: 10px;
+
+    border: 1px solid var(--border);
+
+    background: var(--panel2);
+
+    color: var(--text);
+
+    padding: 7px 10px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: .78rem;
+
+    transition:
+        background-color .2s ease,
+        border-color .2s ease,
+        color .2s ease;
+
+}
+
+
+.copy-code:hover {
+
+    background: var(--accent);
+
+    border-color: var(--accent);
+
+    color: var(--white);
+
+}
+
+
+/* =========================================================
+   LOAD ERROR MESSAGE
+========================================================= */
+
+.load-error {
+
+    color: var(--red);
+
+    background: rgba(239, 68, 68, .08);
+
+    border: 1px solid rgba(239, 68, 68, .2);
+
+    border-radius: 10px;
+
+    padding: 14px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================================
+   OPTIONAL STATUS COLORS
+   These can be used anywhere else in the page.
+========================================================= */
+
+.text-accent {
+
+    color: var(--accent);
+
+}
+
+
+.text-green {
+
+    color: var(--green);
+
+}
+
+
+.text-red {
+
+    color: var(--red);
+
+}
+
+
+.text-yellow {
+
+    color: var(--yellow);
+
+}
+
+
+.text-muted {
+
+    color: var(--muted);
+
+}
+
+
+/* =========================================================
+   OPTIONAL PANEL
+========================================================= */
+
+.panel {
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    color: var(--text);
+
+}
+
+
+/* =========================================================
+   OPTIONAL SECONDARY PANEL
+========================================================= */
+
+.panel-secondary {
+
+    background: var(--panel2);
+
+    border: 1px solid var(--border);
+
+    color: var(--text);
+
+}
+
+
+/* =========================================================
+   SELECTION
+========================================================= */
+
+::selection {
+
+    background: var(--accent);
+
+    color: var(--white);
+
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+
+    width: 8px;
+
+    height: 8px;
+
+}
+
+
+::-webkit-scrollbar-track {
+
+    background: var(--bg);
+
+}
+
+
+::-webkit-scrollbar-thumb {
+
+    background: var(--border);
+
+    border-radius: 10px;
+
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: var(--accent);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    body {
+
+        padding: 15px 10px;
+
+    }
+
+
+    .container {
+
+        width: 100%;
+
+    }
+
+
+    .card {
+
+        padding: 20px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .input-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .topbar {
+
+        align-items: flex-start;
+
+    }
+
+
+    .top-actions {
+
+        width: 100%;
+
+        justify-content: space-between;
+
+    }
+
+
+    .page-title {
+
+        font-size: 1.25rem;
+
+    }
+
+
+    .code-header {
+
+        align-items: flex-start;
+
+    }
+
+
+    .prediction-value {
+
+        font-size: 1.8rem;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    body {
+
+        padding: 10px 8px;
+
+    }
+
+
+    .card {
+
+        padding: 16px;
+
+    }
+
+
+    .page-title {
+
+        font-size: 1.1rem;
+
+    }
+
+
+    .action-row {
+
+        width: 100%;
+
+    }
+
+
+    .predict-button {
+
+        width: 100%;
+
+    }
+
+
+    .code-wrapper pre {
+
+        padding: 15px;
+
+        font-size: .76rem;
+
+    }
+
+}

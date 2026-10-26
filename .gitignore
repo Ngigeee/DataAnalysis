@@ -1,0 +1,8 @@
+venv/
+venv_backup/
+__pycache__/
+*.py[cod]
+.env
+.venv
+datasets/
+saved_models/

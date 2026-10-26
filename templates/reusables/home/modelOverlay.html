@@ -1,0 +1,1299 @@
+<!-- ============================= -->
+
+<!-- MACHINE LEARNING MODEL OVERLAY -->
+
+<!-- ============================= -->
+
+<div id="modelOverlay" class="model-overlay">
+
+```
+<div class="model-modal">
+
+    <!-- Header -->
+    <div class="model-modal-header">
+
+        <div>
+            <span class="model-icon">
+                <i class="fas fa-chart-line"></i>
+            </span>
+
+            <div class="model-heading">
+                <h2 id="modelTitle">Linear Regression</h2>
+                <p>Configure and run your machine learning model</p>
+            </div>
+        </div>
+
+        <button
+            type="button"
+            class="model-close"
+            onclick="closeModelOverlay()">
+            <i class="fas fa-times"></i>
+        </button>
+
+    </div>
+
+
+    <!-- Body -->
+    <div class="model-modal-body">
+
+        <!-- Dataset information -->
+        <div class="model-section">
+
+            <h3>
+                <i class="fas fa-database"></i>
+                Dataset
+            </h3>
+
+            <div class="model-field">
+
+                <label>Dataset</label>
+
+               <div class="active-model-dataset">
+
+    <div class="active-dataset-icon">
+        <i class="fas fa-database"></i>
+    </div>
+
+    <div>
+        <span>Active Dataset</span>
+        <strong id="modelDatasetName">
+            Loading...
+        </strong>
+    </div>
+
+</div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Features -->
+        <div class="model-section">
+
+            <h3>
+                <i class="fas fa-columns"></i>
+                Features & Target
+            </h3>
+
+            <div class="model-grid">
+
+                <div class="model-field">
+
+                    <label>Features (X)</label>
+
+                    <select id="modelFeatures" multiple>
+                        <option value="">Select features</option>
+                    </select>
+
+                    <small>
+                        Select the columns the model should learn from.
+                    </small>
+
+                </div>
+                
+                
+                
+
+
+                <div class="model-field">
+
+                    <label>Target (y)</label>
+
+                    <select id="modelTarget">
+                        
+                    </select>
+
+                    <small>
+                        Select the column you want to predict.
+                    </small>
+
+                </div>
+                
+                <!-- Selected features -->
+                <div class="model-field">
+                <label>Features (X)</label>
+                <div id="selectedFeatures" class="selected-columns"></div>
+                </div>
+                
+              <!-- Selected targets --> 
+                <div class="model-field">
+                <label>Target (y)</label>
+                <div id="selectedTarget" class="selected-columns"></div>
+               </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Model settings -->
+        <div class="model-section">
+
+            <h3>
+                <i class="fas fa-sliders"></i>
+                Model Settings
+            </h3>
+
+            <div id="modelSettings">
+
+                <!-- Dynamic settings will be inserted here -->
+
+                <div class="model-info">
+
+                    <i class="fas fa-circle-info"></i>
+
+                    <span>
+                        Select a model to see its available settings.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Test size -->
+        <div class="model-section">
+
+            <h3>
+                <i class="fas fa-vial"></i>
+                Training Configuration
+            </h3>
+
+            <div class="model-grid">
+
+                <div class="model-field">
+
+                    <label for="testSize">
+                        Test Size
+                    </label>
+
+                    <input
+                        type="number"
+                        id="testSize"
+                        value="20"
+                        min="10"
+                        max="50"
+                        step="5">
+
+                    <small>
+                        Percentage of the dataset used for testing.
+                    </small>
+
+                </div>
+
+
+                <div class="model-field">
+
+                    <label for="randomState">
+                        Random State
+                    </label>
+
+                    <input
+                        type="number"
+                        id="randomState"
+                        value="42">
+
+                    <small>
+                        Keeps the train/test split reproducible.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Result -->
+        <div
+            id="modelResult"
+            class="model-result"
+            style="display:none;">
+
+            <div class="result-header">
+
+                <h3>
+                    <i class="fas fa-chart-simple"></i>
+                    Model Result
+                </h3>
+
+            </div>
+
+            <div id="modelResultContent"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <div class="model-modal-footer">
+
+        <button
+            type="button"
+            class="model-btn secondary"
+            onclick="closeModelOverlay()">
+
+            Cancel
+
+        </button>
+
+        <button
+            type="button"
+            class="model-btn primary"
+            onclick="runSelectedModel()">
+
+            <i class="fas fa-play"></i>
+            Run Model
+
+        </button>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<style>
+
+
+
+.model-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(15, 17, 23, 0.78);
+    backdrop-filter: blur(7px);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    z-index: 9999;
+}
+
+.model-overlay.active {
+    display: flex;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.model-modal {
+    width: 100%;
+    max-width: 850px;
+    max-height: 90vh;
+
+    background: var(--panel);
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.45);
+
+    display: flex;
+    flex-direction: column;
+
+    font-family: var(--sans);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.model-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 22px 25px;
+
+    background: var(--panel2);
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.model-modal-header > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+.model-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(124, 106, 246, 0.14);
+
+    color: var(--accent);
+
+    font-size: 20px;
+
+    border: 1px solid rgba(124, 106, 246, 0.2);
+}
+
+
+.model-heading h2 {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+
+.model-heading p {
+    margin: 4px 0 0;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+.model-close {
+    width: 38px;
+    height: 38px;
+
+    border: 1px solid transparent;
+    border-radius: 9px;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s ease;
+}
+
+
+.model-close:hover {
+    background: var(--panel);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+.model-modal-body {
+    padding: 25px;
+
+    overflow-y: auto;
+
+    background: var(--panel);
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+.model-section {
+    margin-bottom: 25px;
+}
+
+
+.model-section h3 {
+    margin: 0 0 15px;
+
+    color: var(--text);
+
+    font-size: 15px;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.model-section h3 i {
+    color: var(--accent);
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.model-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px;
+}
+
+
+/* =========================
+   FORM FIELDS
+========================= */
+
+.model-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+
+.model-field label {
+    color: var(--text);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.model-field select,
+.model-field input {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 11px 12px;
+
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    background: var(--panel2);
+
+    color: var(--text);
+
+    font-family: var(--sans);
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.model-field select:focus,
+.model-field input:focus {
+    border-color: var(--accent);
+
+    box-shadow:
+        0 0 0 3px rgba(124, 106, 246, 0.12);
+}
+
+
+.model-field select option {
+    background: var(--panel2);
+    color: var(--text);
+}
+
+
+.model-field select[multiple] {
+    min-height: 110px;
+}
+
+
+.model-field small {
+    color: var(--muted);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   INFO BOX
+========================= */
+
+.model-info {
+    padding: 14px;
+
+    border-radius: 10px;
+
+    background: rgba(56, 189, 248, 0.08);
+
+    border: 1px solid rgba(56, 189, 248, 0.15);
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.model-info i {
+    color: var(--accent2);
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+.model-result {
+    margin-top: 20px;
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    background: var(--panel2);
+
+    border: 1px solid var(--border);
+}
+
+
+.result-header h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+
+#modelResultContent {
+    color: var(--text);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.model-modal-footer {
+    padding: 18px 25px;
+
+    background: var(--panel2);
+
+    border-top: 1px solid var(--border);
+
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+
+.model-btn {
+    border: 1px solid transparent;
+
+    border-radius: 9px;
+
+    padding: 11px 18px;
+
+    cursor: pointer;
+
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+/* Cancel */
+
+.model-btn.secondary {
+    background: var(--panel);
+
+    color: var(--text);
+
+    border-color: var(--border);
+}
+
+
+.model-btn.secondary:hover {
+    background: var(--panel2);
+
+    border-color: var(--muted);
+}
+
+
+/* Run */
+
+.model-btn.primary {
+    background: var(--accent);
+
+    color: var(--white);
+
+    border-color: var(--accent);
+}
+
+
+.model-btn.primary:hover {
+    filter: brightness(1.1);
+
+    box-shadow:
+        0 5px 18px rgba(124, 106, 246, 0.25);
+}
+
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+.model-modal-body::-webkit-scrollbar {
+    width: 7px;
+}
+
+.model-modal-body::-webkit-scrollbar-track {
+    background: var(--panel);
+}
+
+.model-modal-body::-webkit-scrollbar-thumb {
+    background: var(--border);
+
+    border-radius: 10px;
+}
+
+.model-modal-body::-webkit-scrollbar-thumb:hover {
+    background: var(--muted);
+}
+.selected-columns {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 10px;
+
+}
+
+
+.selected-column {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 5px 9px;
+
+    border-radius: 7px;
+
+    background: rgba(124, 106, 246, 0.12);
+
+    border: 1px solid rgba(124, 106, 246, 0.25);
+
+    color: var(--accent);
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 650px) {
+
+    .model-overlay {
+        padding: 10px;
+    }
+
+    .model-modal {
+        max-height: 95vh;
+
+        border-radius: 14px;
+    }
+
+    .model-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .model-modal-body {
+        padding: 18px;
+    }
+
+    .model-modal-header {
+        padding: 18px;
+    }
+
+    .model-modal-footer {
+        padding: 15px 18px;
+    }
+
+}
+</style>
+
+
+<script>
+
+function closeModelOverlay() {
+
+    const overlay = document.getElementById("modelOverlay");
+
+    // Close
+    overlay.classList.remove("active");
+
+    // Clear selected model
+    delete overlay.dataset.model;
+
+    // 1. CLEAR TARGET SELECTION & DISPLAY
+    const targetSelect = document.getElementById("modelTarget");
+    if (targetSelect) {
+        targetSelect.value = ""; // Reset dropdown selection
+    }
+    updateSelectedTarget(); // Clears the visual target badge container
+
+    // 2. CLEAR FEATURES SELECTION & DISPLAY
+    const featuresSelect = document.getElementById("modelFeatures");
+    if (featuresSelect) {
+        Array.from(featuresSelect.options).forEach(option => {
+            option.selected = false; // Unselect all feature options
+        });
+    }
+    updateSelectedFeatures(); // Clears the visual feature badges container
+
+    // 3. CLEAR PREVIOUS RESULTS
+    const resultDiv = document.getElementById("modelResult");
+    const resultContent = document.getElementById("modelResultContent");
+
+    if (resultDiv) {
+        resultDiv.style.display = "none";
+    }
+
+    if (resultContent) {
+        resultContent.innerHTML = "";
+    }
+
+    console.log("Model overlay closed and state completely reset");
+}
+
+
+
+async function loadModelData() {
+
+    const datasetName =
+        document.getElementById("modelDatasetName");
+
+    const featuresSelect =
+        document.getElementById("modelFeatures");
+
+    const targetSelect =
+        document.getElementById("modelTarget");
+
+
+    try {
+
+        datasetName.textContent = "Loading...";
+
+
+        // Get active dataset
+        const datasetResponse =
+            await fetch("/active_dataframe");
+
+        const datasetResult =
+            await datasetResponse.json();
+
+
+        if (!datasetResult.success) {
+
+            datasetName.textContent =
+                "No active dataset";
+
+            featuresSelect.innerHTML =
+                `<option value="">No dataset selected</option>`;
+
+            targetSelect.innerHTML =
+                `<option value="">No dataset selected</option>`;
+
+            return;
+        }
+
+
+        // Display dataset name
+        datasetName.textContent =
+            datasetResult.name;
+
+
+        // Get columns
+        const columnsResponse =
+            await fetch("/columns");
+
+        const columns =
+            await columnsResponse.json();
+
+
+        // Clear previous options
+        featuresSelect.innerHTML = "";
+
+        targetSelect.innerHTML =
+            `<option value="">Select target</option>`;
+
+
+        // Populate columns
+        columns.forEach(column => {
+
+            const featureOption =
+                document.createElement("option");
+
+            featureOption.value = column;
+
+            featureOption.textContent = column;
+
+            featuresSelect.appendChild(featureOption);
+
+
+            const targetOption =
+                document.createElement("option");
+
+            targetOption.value = column;
+
+            targetOption.textContent = column;
+
+            targetSelect.appendChild(targetOption);
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading model data:",
+            error
+        );
+
+        datasetName.textContent =
+            "Unable to load dataset";
+
+    }
+
+}
+
+//get the selected columns for target and features
+function getSelectedFeatures() {
+
+    const featuresSelect =
+        document.getElementById("modelFeatures");
+
+    const selectedFeatures =
+        Array.from(featuresSelect.selectedOptions)
+        .map(option => option.value);
+
+    return selectedFeatures;
+}
+
+//target
+function getSelectedTarget() {
+
+    const targetSelect =
+        document.getElementById("modelTarget");
+
+    return targetSelect.value;
+
+}
+
+//update selected features
+function updateSelectedFeatures() {
+
+    const selectedFeatures =
+        getSelectedFeatures();
+
+    const container =
+        document.getElementById("selectedFeatures");
+
+
+    container.innerHTML = "";
+
+
+    selectedFeatures.forEach(feature => {
+
+        const item =
+            document.createElement("span");
+
+        item.className = "selected-column";
+
+        item.textContent = feature;
+
+        container.appendChild(item);
+
+    });
+
+}
+//target display
+function updateSelectedTarget() {
+
+    const target =
+        getSelectedTarget();
+
+    const container =
+        document.getElementById("selectedTarget");
+
+
+    container.innerHTML = "";
+
+
+    if (target) {
+
+        const item =
+            document.createElement("span");
+
+        item.className = "selected-column";
+
+        item.textContent = target;
+
+        container.appendChild(item);
+
+    }
+
+}
+//listen to selection of features
+// Listen for target selection
+document
+    .getElementById("modelTarget")
+    .addEventListener(
+        "change",
+        updateSelectedTarget
+    );
+    
+    document
+    .getElementById("modelFeatures")
+    .addEventListener(
+        "change",
+        updateSelectedFeatures
+    );
+
+//run the model
+async function runSelectedModel() {
+    // Get the model overlay
+    const overlay = document.getElementById("modelOverlay");
+
+    // Get selected model type
+    const modelType = overlay.dataset.model;
+
+    // Get selected features
+    const features = getSelectedFeatures();
+
+    // Get selected target
+    const target = getSelectedTarget();
+
+    // Get test size
+    const testSizeInput = document.getElementById("testSize");
+    const testSize = Number(testSizeInput.value);
+
+    // Get random state
+    const randomStateInput = document.getElementById("randomState");
+    const randomState = Number(randomStateInput.value);
+
+    // Result elements
+    const resultDiv = document.getElementById("modelResult");
+    const resultContent = document.getElementById("modelResultContent");
+
+    // -------------------------
+    // VALIDATION
+    // -------------------------
+
+    if (!modelType) {
+        alert("No model selected.");
+        return { success: false, error: "No model selected." };
+    }
+
+    if (features.length === 0) {
+        alert("Please select at least one feature.");
+        return { success: false, error: "No features selected." };
+    }
+
+    if (!target) {
+        alert("Please select a target.");
+        return { success: false, error: "No target selected." };
+    }
+
+    if (features.includes(target)) {
+        alert("The target column cannot also be a feature.");
+        return { success: false, error: "Target cannot be a feature." };
+    }
+
+    if (isNaN(testSize) || testSize < 10 || testSize > 50) {
+        alert("Test size must be between 10% and 50%.");
+        return { success: false, error: "Invalid test size." };
+    }
+
+    if (isNaN(randomState)) {
+        alert("Please enter a valid random state.");
+        return { success: false, error: "Invalid random state." };
+    }
+
+    // -------------------------
+    // SHOW RESULT AREA & LOADING
+    // -------------------------
+
+    resultDiv.style.display = "block";
+    resultContent.innerHTML = `
+        <div class="model-loading">
+            <i class="fas fa-spinner fa-spin"></i>
+            Running ${getModelName(modelType)}...
+        </div>
+    `;
+
+    // -------------------------
+    // PREPARE DATA
+    // -------------------------
+console.log("RUNNING MODEL:", modelType);
+    const modelData = {
+        model_type: modelType,
+        features: features,
+        target: target,
+        test_size: testSize / 100,
+        random_state: randomState
+    };
+
+    console.log("Sending model data:", modelData);
+
+    // -------------------------
+    // SEND TO BACKEND & READ
+    // -------------------------
+
+    try {
+        const response = await fetch("/run_model", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(modelData)
+        });
+
+        const result = await response.json();
+        console.log("Model result:", result);
+
+        // -------------------------
+        // BACKEND ERROR
+        // -------------------------
+
+        if (!response.ok || !result.success) {
+            resultContent.innerHTML = `
+                <div class="model-error">
+                    <i class="fas fa-circle-exclamation"></i>
+                    <strong>Model could not be completed</strong>
+                    <p>${result.error || "Unable to run the model."}</p>
+                </div>
+            `;
+            return result;
+        }
+
+        // -------------------------
+        // CHANGE BUTTON TO "SAVE MODEL" ON SUCCESS
+        // -------------------------
+        const actionButton = document.querySelector(".model-btn.primary");
+           if (actionButton) {
+         actionButton.innerHTML = `
+        <i class="fas fa-floppy-disk"></i>
+        Save Model
+    `;
+    // Bind the save handler
+    actionButton.onclick = saveSelectedModel;
+    actionButton.disabled = false; // ensure it's active
+}
+
+        // -------------------------
+        // DYNAMIC METRICS GENERATION
+        // -------------------------
+        const metricsObj = result.metrics || {};
+        
+        let metricsHtml = "";
+        const entries = Object.entries(metricsObj);
+
+        if (entries.length > 0) {
+            metricsHtml = entries.map(([key, value]) => `
+                <div class="result-item">
+                    <strong>${key}</strong>
+                    <span>${isNaN(value) ? value : Number(value).toFixed(4)}</span>
+                </div>
+            `).join("");
+        } else {
+            metricsHtml = `<p class="text-muted">No specific metrics returned.</p>`;
+        }
+
+        // -------------------------
+        // SUCCESS RESULT RENDERING
+        // -------------------------
+
+        resultContent.innerHTML = `
+            <!-- MODEL INFORMATION -->
+            <div class="result-section">
+                <h4>
+                    <i class="fas fa-robot"></i>
+                    Model Information
+                </h4>
+                <div class="result-item">
+                    <strong>Model</strong>
+                    <span>${result.model || getModelName(modelType)}</span>
+                </div>
+                <div class="result-item">
+                    <strong>Features</strong>
+                    <span>${features.join(", ")}</span>
+                </div>
+                <div class="result-item">
+                    <strong>Target</strong>
+                    <span>${target}</span>
+                </div>
+            </div>
+
+            <!-- TRAINING CONFIGURATION -->
+            <div class="result-section">
+                <h4>
+                    <i class="fas fa-sliders"></i>
+                    Training Configuration
+                </h4>
+                <div class="result-item">
+                    <strong>Test Size</strong>
+                    <span>${testSize}%</span>
+                </div>
+                <div class="result-item">
+                    <strong>Random State</strong>
+                    <span>${randomState}</span>
+                </div>
+                ${result.training_rows !== undefined ? `
+                <div class="result-item">
+                    <strong>Training Rows</strong>
+                    <span>${result.training_rows}</span>
+                </div>` : ""}
+                ${result.testing_rows !== undefined ? `
+                <div class="result-item">
+                    <strong>Testing Rows</strong>
+                    <span>${result.testing_rows}</span>
+                </div>` : ""}
+            </div>
+
+            <!-- MODEL PERFORMANCE (DYNAMIC) -->
+            <div class="result-section">
+                <h4>
+                    <i class="fas fa-chart-line"></i>
+                    Model Performance
+                </h4>
+                ${metricsHtml}
+                ${result.evaluation ? `
+                <div class="result-item">
+                    <strong>Evaluation</strong>
+                    <span>${result.evaluation}</span>
+                </div>` : ""}
+            </div>
+
+            <!-- WHAT THE RESULT MEANS -->
+            ${result.evaluation_message ? `
+            <div class="result-explanation">
+                <h4>
+                    <i class="fas fa-circle-info"></i>
+                    What does this mean?
+                </h4>
+                <p>${result.evaluation_message}</p>
+            </div>` : ""}
+
+            <!-- RECOMMENDATION -->
+            ${result.recommendation ? `
+            <div class="result-recommendation">
+                <h4>
+                    <i class="fas fa-lightbulb"></i>
+                    Recommendation
+                </h4>
+                <p>${result.recommendation}</p>
+            </div>` : ""}
+        `;
+
+        // Return the full result object for reuse
+        return result;
+
+    } catch (error) {
+        console.error("Error running model:", error);
+
+        resultContent.innerHTML = `
+            <div class="model-error">
+                <i class="fas fa-circle-exclamation"></i>
+                <strong>Something went wrong</strong>
+                <p>We could not connect to the server. Please try again.</p>
+            </div>
+        `;
+
+        return { success: false, error: error.message };
+    }
+}
+
+//save model
+async function saveSelectedModel() {
+    // Get the model overlay to read active model type and target
+    const overlay = document.getElementById("modelOverlay");
+    const modelType = overlay.dataset.model;
+    const target = getSelectedTarget();
+
+    // Validation
+    if (!modelType || !target) {
+        alert("No active model or target found to save.");
+        return;
+    }
+
+    const actionButton = document.querySelector(".model-btn.primary");
+    
+    // Optional: show loading state on button
+    if (actionButton) {
+        actionButton.disabled = true;
+        actionButton.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
+    }
+
+    try {
+        const response = await fetch("/save_model", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                model_type: modelType,
+                target: target
+            })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.error || "Failed to save model.");
+        }
+
+        // Success feedback
+        alert(result.message || "Model saved successfully!");
+        
+        if (actionButton) {
+            actionButton.innerHTML = `<i class="fas fa-check"></i> Saved`;
+            actionButton.disabled = true; // Prevent multiple saves of the same cached instance
+        }
+
+    } catch (error) {
+        console.error("Error saving model:", error);
+        alert("Error: " + error.message);
+        
+        if (actionButton) {
+            actionButton.disabled = false;
+            actionButton.innerHTML = `<i class="fas fa-floppy-disk"></i> Save Model`;
+        }
+    }
+}
+</script>

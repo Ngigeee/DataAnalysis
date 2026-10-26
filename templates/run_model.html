@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title id="page-title">
+        Run Model - Kijarney
+    </title>
+
+    {% include "reusables/home/metadata.html" %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/run_model.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- =================================================
+         TOP BAR
+    ================================================= -->
+
+    <div class="topbar">
+
+
+        <a
+            id="back-link"
+            href="#"
+            class="back"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Model Details
+
+        </a>
+
+
+        <div class="top-actions">
+
+
+            <button
+                type="button"
+                class="back"
+                id="view-code-button"
+                onclick="showCode()"
+            >
+
+                <i class="fa-solid fa-code"></i>
+
+                View Code
+
+            </button>
+
+
+            <div class="page-title">
+
+                Execute Model
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         RUN MODEL
+    ================================================= -->
+
+    <div class="card">
+
+
+        <h3 class="section-title">
+
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+            <span id="model-title-text">
+                Run Model Prediction
+            </span>
+
+        </h3>
+
+
+        <p class="subtitle">
+
+            Provide values for each feature required by
+            the training profile. The model will predict:
+
+            <strong
+                id="target-label"
+                style="color:var(--text);"
+            >
+                --
+            </strong>
+
+        </p>
+
+
+        <form id="prediction-form">
+
+
+            <div
+                class="input-grid"
+                id="input-grid-container"
+            >
+
+                <div style="
+                    grid-column:1 / -1;
+                    color:var(--muted);
+                ">
+
+                    Loading model configuration...
+
+                </div>
+
+            </div>
+
+
+            <div class="action-row">
+
+
+                <button
+                    type="submit"
+                    class="predict-button"
+                    id="predict-button"
+                >
+
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                    Run Prediction
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+
+        <!-- =================================================
+             RESULT
+        ================================================= -->
+
+        <div id="result">
+
+
+            <div
+                class="prediction-label"
+                id="result-label"
+            >
+
+                Predicted Output
+
+            </div>
+
+
+            <div
+                class="prediction-value"
+                id="prediction-value"
+            >
+
+                --
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         CODE VIEWER
+    ================================================= -->
+
+    <div
+        class="card"
+        id="code-card"
+    >
+
+
+        <div class="code-header">
+
+
+            <div class="code-header-left">
+
+
+                <h3 class="section-title">
+
+                    <i class="fa-solid fa-code"></i>
+
+                    Model Code
+
+                </h3>
+
+
+                <p class="code-description">
+
+                    Python code for loading the saved model
+                    and making a prediction.
+
+                </p>
+
+
+            </div>
+
+
+            <button
+                type="button"
+                class="close-code"
+                onclick="hideCode()"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+                Close
+
+            </button>
+
+
+        </div>
+
+
+        <div class="code-wrapper">
+
+
+            <button
+                type="button"
+                class="copy-code"
+                onclick="copyModelCode()"
+            >
+
+                <i class="fa-solid fa-copy"></i>
+
+                Copy
+
+            </button>
+
+
+            <pre id="model-code">Loading code...</pre>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<script src="{{ url_for('static', filename='js/run_model.js') }}"></script>
+
+</body>
+
+</html>
+

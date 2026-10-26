@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>View Dataset Copy - Kijarney</title>
+    {% include "reusables/home/metadata.html" %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/view_copy.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    >
+
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+
+        <a href="/profile" class="back-button">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Profile
+        </a>
+
+        <div class="top-actions">
+
+            <a
+                id="download-button"
+                href="#"
+                class="btn btn-primary"
+                style="display:none;"
+            >
+                <i class="fa-solid fa-download"></i>
+                Download
+            </a>
+
+            <a href="/profile" class="btn btn-outline">
+                <i class="fa-solid fa-user"></i>
+                Profile
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ERROR -->
+    <div id="error-box" class="error-box"></div>
+
+
+    <!-- LOADING -->
+    <div id="loading" class="card loading">
+
+        <i class="fa-solid fa-spinner fa-spin"></i>
+
+        <p>Loading dataset copy...</p>
+
+    </div>
+
+
+    <!-- CONTENT -->
+    <div
+        id="content"
+        class="content-grid"
+        style="display:none;"
+    >
+
+        <!-- SIDEBAR -->
+        <div>
+
+            <!-- COPY INFORMATION -->
+            <div class="card">
+
+                <div class="copy-header">
+
+                    <div class="copy-icon">
+                        <i class="fa-solid fa-copy"></i>
+                    </div>
+
+                    <div class="copy-title">
+
+                        <h1 id="copy-name">
+                            Dataset Copy
+                        </h1>
+
+                        <p>Dataset Copy</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-list">
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Status
+                        </span>
+
+                        <span
+                            id="copy-status"
+                            class="info-value status"
+                        >
+                            <i class="fa-solid fa-circle"></i>
+                            Active
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Rows
+                        </span>
+
+                        <span
+                            id="row-count"
+                            class="info-value"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Columns
+                        </span>
+
+                        <span
+                            id="column-count"
+                            class="info-value"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            File Size
+                        </span>
+
+                        <span
+                            id="file-size"
+                            class="info-value"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Created
+                        </span>
+
+                        <span
+                            id="created-date"
+                            class="info-value"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ORIGINAL DATASET -->
+                <div class="original-dataset">
+
+                    <div class="original-label">
+                        Original Dataset
+                    </div>
+
+                    <div
+                        id="original-name"
+                        class="original-name"
+                    >
+                        <i class="fa-solid fa-database"></i>
+                        Loading...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FILE -->
+            <div class="card">
+
+                <h3 class="section-title">
+                    <i class="fa-solid fa-file"></i>
+                    File
+                </h3>
+
+                <div
+                    id="file-path"
+                    class="file-path"
+                >
+                    Loading...
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PREVIEW -->
+        <div class="card preview-card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2 class="section-title">
+
+                        <i class="fa-solid fa-table"></i>
+
+                        Dataset Preview
+
+                    </h2>
+
+                    <p
+                        id="preview-info"
+                        class="preview-info"
+                    >
+                        Loading preview...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div id="table-container">
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-table"></i>
+
+                    <p>Loading dataset...</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/view_copy.js') }}"></script>
+
+
+</body>
+
+</html>

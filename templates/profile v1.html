@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Kijarney</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --text-muted: #6c757d;
+            --primary-color: #4f46e5;
+            --border-color: #e5e7eb;
+        }
+
+        body.dark {
+            --bg-color: #111827;
+            --card-bg: #1f2937;
+            --text-color: #f9fafb;
+            --text-muted: #9ca3af;
+            --border-color: #374151;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .profile-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem auto;
+            font-weight: bold;
+        }
+
+        .profile-info {
+            margin-bottom: 2rem;
+            text-align: left;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .info-label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body class="{{ session.get('user', {}).get('theme', 'light') }}">
+    <div class="container">
+        <div class="profile-card">
+            <div class="avatar">
+                {{ session.get('user', {}).get('username', 'U')[0] | upper }}
+            </div>
+            <h2>{{ session.get('user', {}).get('username', 'User') }}</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Kijarney Member</p>
+
+            <div class="profile-info">
+                <div class="info-row">
+                    <span class="info-label">User ID</span>
+                    <span>#{{ session.get('user', {}).get('id', 'N/A') }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Current Theme</span>
+                    <span style="text-transform: capitalize;">{{ session.get('user', {}).get('theme', 'light') }}</span>
+                </div>
+            </div>
+
+            <div class="actions">
+                <a href="{{ url_for('home') }}" class="btn btn-outline">Home</a>
+                <a href="{{ url_for('coming_soon') }}" class="btn btn-primary">Advanced Stats (Coming Soon)</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
