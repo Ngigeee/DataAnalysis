@@ -78,8 +78,15 @@ app = Flask(__name__)
 
 
 
+
+
 def generate_secret_key():
-    return secrets.token_hex(32)   # 64-character random key
+    key = os.environ.get("FLASK_SECRET_KEY")
+
+    if not key:
+        key = secrets.token_hex(32)
+
+    return key  # 64-character random key
 
 app.secret_key = generate_secret_key()
 
