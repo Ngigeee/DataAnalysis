@@ -68,6 +68,11 @@ from routes.overview import overview_bp
 
 # profile page routes
 from routes.profile.profile_details import profile_details_bp
+from routes.profile.copy_management import copy_management_bp
+from routes.profile.dataset_management import dataset_management_bp
+from routes.profile.model_management import model_management_bp
+from routes.profile.full_profile import full_profile_bp 
+from routes.profile.profile_data import profile_data_bp
 #playerrating
 from routes.player_rating import player_rating_bp 
 
@@ -128,7 +133,14 @@ app.register_blueprint(dataVisualize_bp)
 app.register_blueprint(overview_bp)
 
 #call the profile routes
+
 app.register_blueprint(profile_details_bp)
+app.register_blueprint(copy_management_bp)
+app.register_blueprint(dataset_management_bp)
+app.register_blueprint(model_management_bp)
+app.register_blueprint(full_profile_bp)
+app.register_blueprint(profile_data_bp)
+
 #callplayerratings
 app.register_blueprint(player_rating_bp)
 
