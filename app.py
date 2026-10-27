@@ -55,6 +55,13 @@ from routes.loadActiveDataset import get_active_dataframe, save_active_dataframe
 #------end------
 
 # -----models routes
+#run clicked model
+from routes.run_clicked_model import run_clicked_model_bp
+from routes.view_clicked_model_code import view_clicked_model_code_bp
+from routes.view_clicked_model_info import view_clicked_model_info_bp
+from routes.view_clicked_copy import view_clicked_copy_bp
+from routes.view_clicked_dataset import view_clicked_dataset_bp
+from routes.dashboard_model_details import dashboard_model_details_bp
 from routes.models.linearRegression import linearRegression
 from routes.models.logisticRegression import logisticRegression
 #------end------
@@ -124,6 +131,24 @@ app.register_blueprint(export_visualization_bp)
 
 #call--more--functions
 app.register_blueprint(dataset_structure_bp)
+
+#run clicked model
+app.register_blueprint(run_clicked_model_bp)
+
+#view clicked model code
+app.register_blueprint(view_clicked_model_code_bp)
+
+#view clicked model information
+app.register_blueprint(view_clicked_model_info_bp)
+
+#view clicked copy
+app.register_blueprint(view_clicked_copy_bp)
+
+#view clicked dataset
+app.register_blueprint(view_clicked_dataset_bp)
+
+#view dashboard model details
+app.register_blueprint(dashboard_model_details_bp)
 
 #call the home routes
 app.register_blueprint(auth_bp)

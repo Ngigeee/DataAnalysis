@@ -1,0 +1,73 @@
+<!-- =================================================
+                 API KEY
+            ================================================== -->
+
+            <div
+                class="card"
+                id="api-section"
+            >
+
+                <div class="section-header">
+
+                    <h3 class="section-title">
+
+                        <i class="fa-solid fa-key"></i>
+
+                        API Key
+
+                    </h3>
+
+
+                    <a
+                        href="{{ url_for('coming_page') }}"
+                        class="btn btn-outline"
+                    >
+
+                        <i class="fa-solid fa-rotate"></i>
+
+                        Reset
+
+                    </a>
+
+                </div>
+
+
+                <p
+                    style="
+                        font-size: 0.8rem;
+                        color: var(--text-muted);
+                        margin-bottom: 0.75rem;
+                    "
+                >
+
+                    Use your personal token to connect scripts
+                    to Kijarney.
+
+                </p>
+
+
+                <div class="api-key-box">
+
+                    <span class="api-key-mask">
+                        Loading...
+                    </span>
+
+
+                    <i
+                        class="fa-regular fa-copy"
+                        style="
+                            cursor: pointer;
+                            color: var(--primary-color);
+                        "
+                        title="Copy Key"
+                        onclick="copyAPIKey()"
+                    ></i>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>

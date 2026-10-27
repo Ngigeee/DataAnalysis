@@ -124,10 +124,3 @@ def contact_page():
 def coming_page():
     return render_template("comingSoon.html")
 
-
-# --------------------------------------------------
-# OTHER PAGES
-# --------------------------------------------------
-@pages_bp.route("/player_rating")
-def player_page():
-    return render_template("player_rating.html")
